@@ -271,6 +271,13 @@ function multiply(a) {
 
 multiply(5)(6);
 
+//cut array length
+  let arr=[4,7,1,4,7,5,1,4,6,8,9]
+  arr.length=5;
+  console.log(arr)
+
+
+  console.log(output);
 
 
 
