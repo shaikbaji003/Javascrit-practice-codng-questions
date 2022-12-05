@@ -168,7 +168,108 @@ const passengers123 = [
 const det=passengers123.filter((e)=> e.isVegetarianOrVegan).map((e)=> e.isVegetarianOrVegan)
 console.log(det)
 
+//05/12/2022
 
+//How to empty an array in JavaScript?
+var arrayList =  ['a', 'b', 'c', 'd', 'e', 'f'];
+//1 method
+arrayList = [];
+//2nd method
+arrayList.splice(0, arrayList.length);
+//How would you check if a number is an integer?
+
+function isInt(num) {
+  return num % 1 === 0;
+}
+
+console.log(isInt(4)); // true
+console.log(isInt(12.2)); // false
+//Make this work
+
+duplicate([1, 2, 3, 4, 5]); // [1,2,3,4,5,1,2,3,4,5]
+//answer
+function duplicate(arr) {
+  return arr.concat(arr);
+}
+
+duplicate([1, 2, 3, 4, 5]);
+//Write a "mul" function which will properly when invoked as below syntax
+
+function mul (x) {
+  return function (y) {
+    return function (z) {
+      return x * y * z;
+    };
+  };
+}
+console.log(mul(2)(3)(4));
+//Write a function that would allow you to do this?
+var addSix = createBase(6);
+addSix(10); // returns 16
+addSix(21); // returns 27
+//answer
+function createBase(baseNumber) {
+  return function(N) {
+    return baseNumber + N;
+  }
+}
+
+var addSix = createBase(6);
+addSix(10);
+addSix(21);
+
+//FizzBuzz Challenge
+
+function fiz(n){
+    for(i=0; i<=n; i++){
+        if(i%3===0 && i%5===0){
+            console.log('fiz buz')
+        }else if(i%3===0){
+            console.log('fizz');
+        }else if(i%5===0){
+            console.log('buzz')
+        }else(console.log(i))
+    }
+}
+
+fiz(15);
+//Given two strings, return true if they are anagrams of one another
+//For example: Mary is an anagram of Army
+
+//answer
+function isAnagram(first, second) {
+  var a = first.toLowerCase();
+  var b = second.toLowerCase();
+ a = a.split("").sort().join("");
+  b = b.split("").sort().join("");
+
+  return a === b;
+}
+
+//What will be the output of the following code?
+
+var y = 1;
+if (function f() {}) {
+  y += typeof f;
+}
+console.log(y);
+
+// output?
+(function() {
+  var a = b = 5;
+})();
+
+console.log(b);//5
+
+//Write a function that would allow you to do this
+//multiply(5)(6);
+function multiply(a) {
+  return function(b) {
+    return a * b;
+  }
+}
+
+multiply(5)(6);
 
 
 
