@@ -1327,3 +1327,424 @@ print("Priya", (value)=>{
 });
 console.log(2);
 -------------------------------------------------------------------------------------------
+
+  
+  //13/12/2022
+  
+  
+  
+  
+  let promises = new Promise((resolve, reject)=>{
+  setTimeout(()=>{
+    let state = true;
+    if(state){
+      resolve("Resolved Promises!!...");
+    }else{
+      reject("Rejected Promises!!...");
+    }  
+  }, 1000)
+})
+promises.then((res)=>console.log(res))
+.catch((err)=>console.log(err))
+//resoled!!....
+-------------------------------------------------------------------------------------------
+console.log(1);
+
+const data = new Promise((resolve, reject)=>{
+  console.log(2);
+  resolve(3);
+})
+
+data.then((res)=>{
+  console.log(res)
+})
+
+console.log(4); //1 2 4 3
+-------------------------------------------------------------------------------------------
+console.log(1);
+
+const data = new Promise((resolve, reject)=>{
+  console.log(2);
+  //resolve(3);
+})
+
+data.then((res)=>{
+  console.log(res)
+})
+
+console.log(4); //1 2 4 
+If we are not returning anything it will not print anything .
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+let a = "true";
+setTimeout(()=>{
+  a=false;
+}, 2000)
+
+while(a){
+  console.log("1")
+} 
+
+Reason: 1, 1, 1,...... 
+Explanation: Event loop will add setTimeout callback in Macrotask queue and will push it to call stack for execution only when the main thread finishes executing.
+
+Here, since 'a' is true and isn't being set to false anywhere in main thread, the while loop will run infinitely, and setTimeout callback will never get a chance to run.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function run(value, time){
+  return new Promise((resolve)=>{
+    setTimeout(()=>{
+      resolve(value)
+    }, time)
+  })
+}
+async function task(){
+  let a = await run(1, 1000); //1value //1 sec
+  let b = run(2, 2000); //2value //2 sec
+  let c = run(3, 1000);  //3value //execute before b so will not take extra time
+  console.log(a + await b+ await c);
+}
+task()
+
+6 'in 3Sec'
+
+Explanation: In line 10, a setTimeout() timer of 1 sec will be triggered and due to 'await', it will wait for the timer to expire, and after 1 sec, value of a is 1. 
+
+Then since there is no 'await' in line 11 and 12, the 2 timers of 2 sec and 1 sec will be triggered simultaneously. Then in line 14, since b hasn't been resolved, due to await, it will wait for another 2 sec, and since the 2 timers started simultaneously, the other 1 sec timer would already have expired. 
+
+So, after another 2 sec, value of b will be 2, and then immediately after that, value of c will be 3. 
+
+👉 Output : 1 + 2 + 3 = 6
+👉 Total time: 1 (line 10) + 2 (await b, in line 14) + 0 (await c, in line 14) = 3 sec
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const fetchData = function(){
+  return new Promise((res, reject)=>{
+    reject("Error!!")
+  })
+}
+
+fetchData()
+.then(null, (err)=>{
+  console.log("First");
+  console.log(err);
+})
+.catch(()=>{
+  console.log("Second");
+  console.log(err)
+})
+
+Explaination : "First" "Error!!"
+reject("Error!!") gives string value so it will go to THEN block rather than CATCH block.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+displayName();
+var displayName = function(){
+  console.log("Priya")
+} 
+function displayName(){
+  console.log("dolly")
+}
+displayName();
+
+//Explaination : dolly priya
+
+Normal function will get execute before, because of function Hoisting concept, then function expression wil get execute.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const inc = async(x) => {
+  x = x + await 1; //2
+  return x;
+}
+
+const increment = async(x) =>{ 
+  x = x+1; //2+1
+  return x; //3
+}
+inc(1)
+.then((x)=>{ //2
+  increment(x) //2
+  .then((x)=>console.log(x)) //3
+})
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const p1 = Promise.resolve("First");
+const p2 = Promise.reject("Second");
+const p3 = Promise.resolve("Third");
+const runPromise = async() =>{
+  try{
+    const res = await Promise.all([p1,p2,p3]);
+    console.log(res);
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+runPromise();
+
+//output : Second
+
+Promise.all() returns array of resolved promises values and if either any of the promise is rejected, then it directly returns the rejected promise value through catch block.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+console.log("start");
+
+async function getData(){
+  console.log("priya");
+  return "Dolly";
+}
+
+getData()
+.then((res)=> console.log(res));
+
+console.log("end");
+//start priya end Dolly
+//all the console will print first then aync and setTimeout
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const promise = () => Promise.resolve("Success");
+function first(){
+  promise().then((res)=> console.log(res)); //async
+  console.log("First"); //sync
+}
+async function second(){
+  const res = await promise(); 
+  console.log(res); //async
+  console.log("Second"); //sync
+}
+first();
+second();
+
+// First Sucess success second
+// sync(console) run hen async(promise)
+//await pause the line of execution
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const person1 = {
+  name : "Priya"
+}
+const person2 = {
+  name : "Dolly"
+}
+const person = Object.assign(person1, person2);
+
+console.log(person); //{"name" : "Dolly"}
+console.log(person.name); //Dolly
+console.log(person1.name); //Dolly
+console.log(person2.name); //Dolly
+
+//Having same key name so, the value is override and it will be "Dolly"
+
+Explanation : As Object.assign() method will add all the key values of person2 to person1 and return the reference of person1 to person and if same key are there they'll be overwritten.
+Basically person1 and person are referring to same object.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const calc=(a)=>{
+  return (b)=>{
+    if(b) return calc(a+b);
+    return a;
+  }
+}
+console.log(calc(1)(2)(3)(4)()) //10 currying
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const fetchData = function(){
+  return new Promise((res)=> res("One"));
+}
+let isLoading = true;
+fetchData()
+.then((result)=>{
+  console.log(result);
+})
+.finally(()=>{
+         console.log("Two");
+          isLoading = false;
+})      
+console.log(isLoading)  
+
+//true one two
+//console value run first
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+const person = {
+  name : "Priya",
+  displayName(){
+    console.log(this.name) //pointing to the person object
+  }
+}
+
+const jayesh = Object.create(person)
+person.displayName(); //Priya
+console.log(jayesh); //{}
+jayesh.displayName(); //Priya
+I believe Object.create() creates a new object from the existing object, and both have the same memory addresses.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+let p = new Promise((resolve, reject)=>{
+   reject(Error("Failed!!"))                    
+})
+
+p.catch((error)=>{
+  console.log(error); //{}
+  console.log(error.message); //failed
+}).then((result)=>{
+  console.log(result) //undefined //doesn't return anything
+})
+
+//Failed!! undefined
+Explanation: In line 2, we are rejecting the promise 'p' with the argument as Error("Fails!"), which is an 'Error' object with property 'message' set to 'Fails!'. So, in line 5, the error callback passed to catch() method of promise 'p' receives the above passed Error object as the 'error' parameter, and so 'error.message' (Fails!) is printed. 
+
+Now, as this catch handler is not returning any value so, the chained 'then' handler will be called with undefined as parameter.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/* 💡"JavaScript-with-JC" - Guess the Output? */
+
+// 👉 MCQ-1
+function MCQ1() {
+  const person = {
+    name: "Jayesh",
+    displayName1: function () {
+      console.log("name1", this.name);
+    },
+    displayName2: () => {
+      console.log("name2", this.name);
+    },
+  };
+  person.displayName1();
+  person.displayName2();
+
+  // 👍A) name1 Jayesh , name2 Jayesh
+  // 💡B) name1 Jayesh , name2 undefined
+  // 💖C) name1 Jayesh , name2
+  // 😀D) name1 , name2 Jayesh
+
+  /* 
+  In window browser answer is C) name1 Jayesh , name2 because arrow function inherits "this" from its outer function where "this" is window.
+  and window has by default property name that is used for setting or returning the name of a window and in above case window.name is empty string.
+  
+  In other compilers answer is B) name1 Jayesh , name2 undefined because arrow function inherits "this" from its outer function where "this" refers to global object.
+  */
+}
+// MCQ1();
+
+// 👉 MCQ-2
+function MCQ2() {
+  let name = "Jayesh";
+  function printName() {
+    if (name === "Jayesh") {
+      let name = "JC";
+      console.log(name);
+    }
+    console.log(name);
+  }
+  printName();
+
+  // 👍A) Jayesh     💡B) Jayesh, JC
+  // 💖C) JC, JC     😀D) JC, Jayesh
+
+  /* Answer is D) JC, Jayesh because let variables are block scope, name inside if condition will shadow outer name*/
+}
+// MCQ2();
+
+// 👉 MCQ-3
+function MCQ3() {
+  var player = "Virat";
+  function displayPlayer() {
+    if (player === "Virat") {
+      var player = "VK";
+      console.log(player);
+    }
+    console.log(player);
+  }
+  displayPlayer();
+
+  // 👍A) VK, Virat    💡B) VK, VK
+  // 💖C) undefined    😀D) VK, undefined
+
+  /* 
+   Answer is C) undefined because var variables are functional scope, When displayPlayer fn starts executing, Execution context of
+   displayPlayer will be created in callstack and at the memory creation phase var variable player is initialized as undefined. 
+   hence if condition will become false and It will print only undefined.
+  */
+}
+// MCQ3();
+
+// 👉 MCQ-4
+function MCQ4() {
+  const person = {
+    name: "Jayesh",
+    age: 24,
+  };
+
+  const getAge = person.age;
+  delete person.age;
+
+  console.log(person);
+  console.log(getAge);
+
+  // 👍A) { name: 'Jayesh', age: 24 }, null
+  // 💡B) { name: 'Jayesh' }, 24
+  // 💖C) { name: 'Jayesh' }, undefined
+  // 😀D) { name: 'Jayesh', age: 24 }, 24
+
+  /*
+  Answer is B) { name: 'Jayesh' }, 24 because delete keyword deletes property of an object and we are setting getAge as pass by value.
+ */
+}
+// MCQ4();
+
+// 👉 MCQ-5
+function MCQ5() {
+  // No Strict Mode
+  name = "Jayesh"; // window.name ( property of window object )
+  console.log(delete name);
+
+  const displayName = (function (name) {
+    console.log(delete name); // Local variable of function
+    return name;
+  })("JC");
+
+  console.log(displayName);
+
+  // 👍A) true, false, JC
+  // 💡B) true, true, undefined
+  // 💖C) false, false, JC
+  // 😀D) false, true, undefined
+
+  /*
+  Answer is A) true, false, JC because delete keyword deletes only property of an object. 
+  delete keyword can not delete local variables ( declared with var, let, and const ) and functions. 
+  delete keyword can delete global variables as they are property of window object.
+ */
+}
+// MCQ5();
+
+// 👉 MCQ-6
+function MCQ6() {
+  const arr = [];
+
+  for (var i = 0; i < 5; i++) {
+    arr[i] = function () {
+      return i;
+    };
+  }
+
+  console.log(arr[0]());
+  console.log(arr[4]());
+
+  // 👍A) 0, 4     💡B) 4, 4
+  // 💖C) 5, 5     😀D) TypeError
+
+  /*
+  Answer is C) 5, 5 because variables declared with var keyword are function-scoped or globally-scoped but not blocked scoped. 
+  Inner function will form the closure and points to the updated value of i that is 5. 
+  In the case of Let variable, as they are blocked scoped so inner function will hold different values of i from 0 to 4.
+ */
+
+  /* 👇 In the case of Let variable */
+  const arrBlock = [];
+
+  for (let i = 0; i < 5; i++) {
+    arrBlock[i] = function () {
+      return i;
+    };
+  }
+
+  console.log(arrBlock[0]()); // 0
+  console.log(arrBlock[4]()); // 4
+}
