@@ -2061,3 +2061,213 @@ function MCQ16() {
 */
 }
 // MCQ16();
+
+
+//15/12/2022
+
+
+
+// 👉 MCQ-17
+function MCQ17() {
+  for (var i = 0; i < 5; i++) {
+    setTimeout(
+      (i) => {
+        console.log(i);
+      },
+      1000,
+      i
+    );
+  }
+
+  // 👍A) 0 1 2 3 4      💡B) 5 5 5 5 5
+  // 💖C) 4 4 4 4 4      😀D) 0 1 2 3 4 5
+
+  /*
+  Answer is A) 0 1 2 3 4 because as we are passing i ( 0 to 4 ) value as an argument to setTimeout callback function
+  therefore this will console different values of i from 0 to 4.
+
+  if there was no argument passed to setTimeout callback function then the output would be 5 5 5 5 5 because variables declared 
+  with var keyword are function-scoped or globally-scoped but not blocked scoped. Inner function i would point to the updated value of i that is 5.
+*/
+}
+// MCQ17();
+
+// 👉 MCQ-18
+function MCQ18() {
+  console.log(1);
+
+  async function fetchData() {
+    console.log(2);
+    let result = await Promise.resolve(3);
+    console.log(result);
+  }
+
+  fetchData();
+  console.log(4);
+
+  // 👍A) 1 2 3 4      💡B) 1 4 2 3
+  // 💖C) 1 2 4 3      😀D) 1 3 4 2
+
+  /*
+  Answer is C) 1 2 4 3 beacause promise is used to handle the asynchronous result of an operation and 
+  callback functions attached to the promises are stored into microtask queue. 
+  So, first synchronous code will be executed i.e 1,2,4 and once callstack is empty, event loop pushes the microtask queue's task into callstack
+  callstack will start executing the task and It will console 3 at last.
+  */
+}
+// MCQ18();
+
+// 👉 MCQ-19
+function MCQ19() {
+  console.log("start");
+
+  const promise = new Promise((resolve) => {
+    console.log(1);
+    resolve(2);
+    console.log(3);
+  });
+
+  promise.then((result) => {
+    console.log(result);
+  });
+
+  console.log("end");
+
+  // 👍A) start end 1 3 2      💡B) start 1 3 end 2
+  // 💖C) start end 1 2 3      😀D) start 1 end 2 3
+
+  /*
+  Answer is B) start 1 3 end 2 beacause The function we pass into the Promise constructor runs synchronously, 
+  but anything that depends on its resolution ( resolve or reject ) will be called asynchronously. 
+  Even if the promise resolves immediately, any handlers ( callback attached to promise then and catch ) will execute asynchronously. 
+
+  const promise = new Promise((resolve) => {
+  console.log(1);  // runs synchronously
+  resolve(2); // called asynchronously by then callback
+  console.log(3); // runs synchronously
+});
+*/
+}
+// MCQ19();
+
+// 👉 MCQ-20
+function MCQ20() {
+  console.log("First");
+
+  const promise = new Promise((resolve) => {
+    console.log("Second");
+  });
+
+  promise.then((result) => {
+    console.log(result);
+  });
+
+  console.log("Third");
+
+  // 👍A) First Second undefined Third      💡B) First Third Second
+  // 💖C) First Second Third undefined      😀D) First Second Third
+
+  /*
+  Answer is D) First Second Third because as there is no resolve in Promise constructor, So it will not go inside of .then block.
+  */
+}
+// MCQ20();
+
+// 👉 MCQ-21
+function MCQ21() {
+  const fetchData = function () {
+    return new Promise((resolve, reject) => {
+      reject();
+    });
+  };
+
+  fetchData()
+    .then(() => {
+      console.log("Success 1");
+    })
+    .catch(() => {
+      console.log("Error 1");
+    })
+    .then(() => {
+      console.log("Success 2");
+    });
+
+  // 👍A) Error 1 TypeError    💡B) Error 1
+  // 💖C) Error 1 Success 2    😀D) undefined
+
+  /*
+  Answer is C) Error 1 Success 2 because in promise chaining .then method below .catch method will be called if in .catch method we are not 
+  returning rejected promise ( by default implicitly returns a promise that is handled by it's below .then method )
+  */
+}
+// MCQ21();
+
+// 👉 MCQ-22
+function MCQ22() {
+  function foo() {
+    let a = (b = 0);
+    a++;
+    return a;
+  }
+  foo();
+  console.log(typeof a);
+  console.log(typeof b);
+
+  // 👍A) undefined number        💡B) ReferenceError number
+  // 💖C) undefined undefined     😀D) number number
+
+  /* 
+  Answer is A) undefined number because variable a is declared with let it is blocked scope and will be "not defined" outside function foo().
+  The typeof operator returns "undefined" even for “undeclared” (or “not defined”) variables.
+  Notice that there was no error thrown when we executed typeof a, even though a is an undeclared variable. 
+  This is a special safety guard in the behavior of typeof. 
+  and variable b is a just global scope variable hence it will be available outside function foo() also. 
+  */
+}
+// MCQ22();
+
+// 👉 MCQ-23
+function MCQ23() {
+  console.log("start");
+
+  setTimeout(() => {
+    console.log("first");
+  }, 0);
+
+  Promise.resolve("second").then((res) => console.log(res));
+
+  console.log("end");
+
+  // 👍A) start end first second       💡B) start first second end
+  // 💖C) start end second first       😀D) start first end second
+
+  /* 
+  Answer is C) start end second first because callback function attached to Promises added into microtask queue 
+  whereas callback function of setTimeout added into callback ( macroTask ) queue. 
+  microTask queue has more priority than callback ( macroTask ) queue.
+  */
+}
+// MCQ23();
+
+// 👉 MCQ-24
+function MCQ24() {
+  const person1 = {
+    name: "Jayesh",
+    age: 24,
+  };
+
+  const person2 = person1;
+  person2.name = "Virat";
+
+  console.log(person1.name);
+  console.log(person2.name);
+
+  // 👍A) Jayesh Virat  💡B) Virat Virat
+  // 💖C) Virat Jayesh  😀D) Jayesh Jayesh
+
+  /* 
+  Answer is B) Virat Virat because objects are passed as a reference, person1 and person2 will hold the same memory address
+  and altering any property of person2 will modify property of person1 as well.
+  */
+}
+// MCQ24();
