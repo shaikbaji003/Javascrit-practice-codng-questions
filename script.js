@@ -2271,3 +2271,503 @@ function MCQ24() {
   */
 }
 // MCQ24();
+
+//19/12/2022
+
+
+--------------------------------------------------
+console.log((x => x)('I love')) //"I love"
+console.log(`${(x => x)('I love')} to program`) //"I love to program"
+//Explaination : Template Literal used here. We use here arrow function which is returning a string 
+----------------------------------------------------
+function sumValues(x,y,z){
+  return x+y+z;
+}
+sumValues(...[2,3,4]) //how to call a function so that output will be 9
+//Explaination : we can't do like this sumValues(2,3,4).
+----------------------------------------------------
+const name = "priya is a girl.";
+console.log(typeof name); //string
+console.log(!typeof name); //false //"priya is a good girl" is a string means thruthy value. Nagation of thruthy is falsy value.
+console.log(!typeof name === 'object'); //false
+console.log(!typeof name === 'string'); //false
+console.log(!typeof name === false); //true
+//Explaination : We are using negation mark(!) which will return either true or false only.
+----------------------------------------------------
+const name = "priya";
+const age ="10000";
+console.log(isNaN(name)); //true
+console.log(isNaN(age)); //false
+//Explaination : If it's not a number then return True. If it's a number then return false.
+-----------------------------------------------------
+let person = {name: "priya"};
+Object.seal(person); //post seal, how can you modify the person object
+person.age ="1000";
+person.name ="supriya";
+console.log(person); //{name : "supriya"}
+//Explaination : Onceyou use Seal we can't able to add the more keys with values into it.But you can modigy the existing key.
+-------------------------------------------------------
+let data = [2,9,0,10];
+data.shift();//remove first element
+console.log(data); //[9,0,10]
+data.pop(); //remove last element
+console.log(data);//[9,0]
+//Explaination : shift and pop use to remove the elements from first and last index.
+--------------------------------------------------------
+//check the value is even or odd
+let a =10;
+console.log(a%2===0 ? true : false); //true
+//Explaination : Need to divide by 2 and then checking if reminder is zero/one.
+----------------------------------------------------------
+let data ={ name : "priya"};
+delete data.name;
+console.log(data); //{}
+//Explaination : delete always work with object properties not a object itself.
+---------------------------------------------------------
+let data ="true";
+//convert data into boolean false value
+console.log(!data); //false
+console.log(typeof !data); //boolean
+//Explaination : ! will make boolean value(or opposite value). 
+---------------------------------------------------------
+let data ="true";
+//convert data into boolean true value
+console.log(!!data); //true
+console.log(typeof !!data); //boolean
+//Explaination : ! will make boolean value(or opposite value). 
+---------------------------------------------------------
+Diff between Map and foreach: Map will return new thing but Foreach didn't return anything.
+---------------------------------------------------------
+let data = ["piya", "priya", "supriya"];
+delete data[1];
+console.log(data); //["piya",,"supriya"] //["piya",empty,"supriya"]
+console.log(data.length); //3
+//Explaination : Whenever element deleted from an object it will create a empty space. Array length will always reain same.
+-------------------------------------------------------------
+//merge 2 arrays
+const a =[1,2,3];
+const b =[4,5,6];
+const c =[...a, ...b]
+console.log(c); //[1,2,3,4,5,6]
+//Explaination : using spread operator
+----------------------------------------------------------------
+const a =[1,2,3];
+const b =[3,4,5,6];
+const c =[...a, ...b]
+console.log(c); //[1,2,3,3,4,5,6]
+//Explaination : using spread operator still we can merge and both values will be present in arrays. But in an object, it will take the lates value and assigned to the 1st position of that key.
+-------------------------------------------------------------------
+let c = 3**3;
+console.log(c); //27
+console.log(3*3); //9
+//Explaination : 3 square 3 means 3*3*3
+---------------------------------------------------------------------
+let a=2;
+setTimeout(()=>{
+  console.log(a); //100
+},0)
+a=100;
+//Explaination : Here we are using zero time interval. setTimeout is async function so it will execute at last. Firstly all the sync code will get execute. so that's why 100 is assigned to a.
+------------------------------------------------------------------------
+let a =2;
+let A =30;
+console.log(A); //30
+//Explaination : a and A both are diff variables.
+------------------------------------------------------------------------
+let A10="hello";
+let 10A ="hi";
+console.log(A10); //hello
+//console.log(10A); //error
+//Explaination : Variable can't start with a number.
+------------------------------------------------------------------------
+let a="hello";
+let b =`hello`;
+console.log(a === b); //true
+console.log(a == b); //true
+//Explaination : Doble code and backticks both are same.
+--------------------------------------------------------------------------
+let a =1;
+let c =2;
+console.log(--c === a); //true
+//Explaination : --c will be 1 so thats why true.
+--------------------------------------------------------------------------
+let a =1;
+let b =1;
+let c =2;
+console.log(a === b === -c); //false
+//Explaination : a===b gives True. true === -c(number) gives false.
+---------------------------------------------------------------------------
+console.log(3*3); //9
+console.log(3**3); //27
+//console.log(3***3); //error
+//Explaination : *** doesn't exist in js.
+----------------------------------------------------------------------------
+console.log(a); //undefined
+var a;
+//Explaination : We can use VAR variable before its declaration. We didn't assign any value but still by default "undefined" will be store in it.undefined means declared but value didn't initialised.
+-----------------------------------------------------------------------------
+console.log(a); //not defined
+//Explaination : Not defined means variable didn't even declared.Also value is not assogned.
+-----------------------------------------------------------------------------
+console.log([[[]]]); //[[[]]]
+//Explaination : It will print the nested array. We will get 3 nested array and each one have 1 element but at the last array will be empty.
+------------------------------------------------------------------------------
+How to find Operating system name?
+navigator.plateform we can use it. //win32
+-------------------------------------------------------------------------------
+let for = 100; //Error
+//Explaination : For is a reserved keyword.
+-------------------------------------------------------------------------------
+function fruit(){
+  console.log(name); //undefined
+  console.log(price); //Error
+  var name = "priya";
+  let price = 1000;
+}
+fruit()
+//Explaination : Hoisting concept used here. Error because in LET declaration first then only we can use it. but in var we can use brfore its declaration.
+-------------------------------------------------------------------------------
+for(var i=0; i<3; i++){ //i=0 //1 //2 //3
+  setTimeout(()=>console.log(i),1) // 3,3,3
+}
+//Explaination : Var is a global variable. Firstly Sync code get executed then async code will start to execute. so i value incremented from 0 to 3 when pointer reaches to setTimeout so it will print 3 thrice time.
+---------------------------------------------------
+for(let i=0; i<3; i++){ //i=0 //1 //2 //3
+  setTimeout(()=>console.log(i),1) //0 //1 //2
+}
+//Explaination : LET is a block scope. so it will print 0,1,2. Its having own islocated scope.
+----------------------------------------------------
+console.log(+true); //1
+console.log(typeof +true); //number
+//Explaination : if we write + in front of anything then it will convert into a number.
+----------------------------------------------------
+console.log(!"priya"); //false
+console.log(typeof ("priya")); //string
+//Explaination : ! will give either true/false.! means false and !! means true.
+----------------------------------------------------
+let data = "size";
+const bird = {size : "small"}
+console.log(bird[data]); //small
+console.log(bird["size"]); //small
+console.log(bird.size); //small
+console.log(bird.data); //undefined
+//Explaination : If we wants to access variable with object then use [] notation(. notation will not work).
+------------------------------------------------------
+let c = {name  : "priya"};
+let d;
+d=c;
+c.name = "supriya";
+console.log(d.name); //supriya
+
+//Explaination : Using assignment operator we are accessing the same memory allocation. 
+-------------------------------------------------------
+var x;
+var x=10;
+console.log(x); //10
+//Explaination : Can be declare multiple times.
+---------------------------------------------------------
+var x;
+let x=10;
+console.log(x); //Error
+//Explaination : Can't be declare multiple times with LET.
+----------------------------------------------------------
+let a = 3;
+let b = new Number(3);
+console.log(a == b); //true
+console.log(a === b); //false
+console.log(typeof b); //object
+//Explaination : === will give false because a will give number but b will give an object.
+-------------------------------------------------------
+let name;
+nmae ={}; //wrong variable name i wrote
+console.log(name); //undefined
+//Explaination : by default it wil be undefined if we declare first.
+---------------------------------------------------------
+function first(){
+  console.log("Woof!!"); //Woof!!
+}
+first.name = "apple";
+first();
+//Explaination : To add the property with a function then it will not create a impact.
+----------------------------------------------------------
+function sum(a,b){
+  return a+b;
+}
+console.log(sum(1, "2")); //12
+//Explaination : 2 is passed as a string so it will get concat. num+string = string
+------------------------------------------------------------
+let num = 0;
+console.log(num++); //0
+console.log(++num); //2
+console.log(num); //2
+//Explaination : ++ will increase the value by 1. preincrement and postincrement used here.
+--------------------------------------------------------------
+function getAge(...args){ //[1000]
+  console.log(typeof args); //object
+}
+getAge(1000);
+//Explaination : typeof args means typeof an array means typeof [] is object.
+--------------------------------------------------------------
+function getAge(){ 
+ age = 1000;
+ console.log(age); //1000
+}
+getAge();
+//Explaination : if we didn't declare with Var/Let/const then by default it will become as a Var.
+------------------------------------------------------------------
+function getAge(){ 
+  'use strict'
+ age = 1000;
+ console.log(age); //error
+}
+getAge();
+//Explaination : Use strict wil give a error because it forces to use a proper way of the variable declaration.
+----------------------------------------------------------------------
+const sum = eval('10*10+5');
+console.log(sum); //105
+//Explaination : It will perform the numerical operation
+----------------------------------------------------------------------------
+const obj = {1:"a", 2:"b"}
+console.log(obj.hasOwnProperty("1")); //true
+console.log(obj.hasOwnProperty(1)); //true
+//Explaination : "1" and 1 treat as same.
+----------------------------------------------------------------------------
+const obj = {a:"one", b: "two", a:"three"}
+console.log(obj); // {a:"three", b: "two"}
+//Explaination : Key position will be same but tha value get updated with new value in object.
+----------------------------------------------------------------------------
+for(let i=1; i<5; i++){
+  if(i==3) continue;
+  console.log(i); //1,2,4
+}
+//Explaination : If i =3 then it will not execute the code for 3, but can execute for i=4.
+------------------------------------------------------------------------------
+const foo = () => console.log("first");
+const bar = () => setTimeout(()=> console.log("second"));
+const baz = () => console.log("third");
+bar();
+foo();
+baz();
+//Explaination : first,third, second. Because asyn operation work post all the syn operation get complete.
+----------------------------------------------------------------------------
+<div onClick="console.log("first div")">
+  <div onClick="console.log("second div")">
+    <button onClick="console.log("button")">
+     Click Me
+     </button>
+  </div>
+</div>
+//Explaination : button, second div, first div. Even bubbling happened here.
+---------------------------------------------------------------------------
+const person = {name:'priya'};
+function sayHi(age){
+  return `${this.name} is ${age}`;
+}
+console.log(sayHi.call(person,21)); //"priya is 21"
+console.log(sayHi.bind(person,21)); //it will return a function. //function sayHi(age){  return `${this.name} is ${age}`;}
+console.log(sayHi.bind(person,21)()); //"priya is 21"
+//Explaination : Bind will always return a function so require to invoke the function.
+------------------------------------------------------------------------------
+function sayHi(){
+  return (()=>0)();
+}
+console.log(typeof sayHi()); //number
+//Explaination : sayHi will return anonymous arrow function/IIFE, where it will return 0. type of 0 is number.
+----------------------------------------------------------------------------
+function sayHi(){
+  return ()=>0;
+}
+console.log(typeof sayHi()); //function
+console.log(typeof sayHi()()); //function
+//Explaination : sayHi will return anonymous arrow function/IIFE, where we didn't invole the arroe function so it will return function.
+-----------------------------------------------------------------------------
+console.log(typeof typeof 1); //string
+//Explaination : typeof 1 is a number and typeof number is a string.
+-----------------------------------------------------------------------------
+const numbers = [1,2,3];
+numbers[6]=11;
+console.log(numbers); //[1,2,3,,,,11]
+//Explaination : Array store elements in a continuous memory location. It will give empty in between an array.
+-------------------------------------------------------------------------------
+const numbers = [1,2,3];
+numbers[9]=numbers;
+console.log(numbers); //[1,2,3,,,,.......]
+//Explaination: It will print infinite loop.
+-------------------------------------------------------------------------------
+console.log(!!null); //false
+console.log(!!""); //false
+console.log(!!1); //true
+//Explaination: !null give true and !!null give false. !1 give false and then !!1 give true.
+-------------------------------------------------------------------------------
+console.log(setInterval(()=>console.log('Hi'), 1000));
+console.log(setInterval(()=>console.log('Hi'), 1000));
+console.log(setInterval(()=>console.log('Hi'), 1000));
+//Explaination: setInterval will give uniques id to stop. It will give like 1,2,3. so it will print 1,2,3,Hi,Hi, Hi, Hi, Hi, .....so on.
+------------------------------------------------------------------------------
+console.log(setTimeout(()=>console.log('Hi'), 1000));
+console.log(setTimeout(()=>console.log('Hi'), 1000));
+console.log(setTimeout(()=>console.log('Hi'), 1000));
+//Explaination : it will print 1,2,3,Hi,Hi, Hi.
+-------------------------------------------------------------------------------
+console.log([..."priya"]); //["p","r","i","y","a"]
+//Explaination: It will convert into an array.
+-------------------------------------------------------------------------------
+const firstPromise = new Promise((res, rej)=>{
+  setTimeout(res, 500, 'one');
+})
+const secondPromise = new Promise((res, rej)=>{
+  setTimeout(res, 100, 'second');
+})
+Promise.race([firstPromise, secondPromise]).then(res => console.log(res));
+//Explaination: Race will return only first matching result so it will print 100. For 500 it will take time to execute so it will not get print.
+-----------------------------------------------------------------------------------
+let person = {name: "priya"};
+const numbers = [person];
+person = null;
+console.log(numbers, person); // [{name : "priya"}] //null
+//Explaination: We try to empty the objecti,e person, but still an array i.e, numbers conatin value so it will not create an impact while assigning null to person.
+----------------------------------------------------------------------------------
+const person = {name: "priya", age: 1000};
+for(const item in person){
+  console.log(item); //name, age
+}
+//Explaination: For in loop give a keys only.
+--------------------------------------------------------------------------------------
+let data = 3+4+'5';
+console.log(data); //"75"
+console.log(typeof data); //string
+//Explaination: It will add as a string.
+------------------------------------------------------------------------------------------
+console.log(typeof 3+4+'5'); //"number45"
+//Explaination: operation went from left to right side.
+----------------------------------------------------------------------------------------
+console.log(typeof (3+4+'5')); //"75" //string
+console.log(typeof (3+4+  +'5'));//number
+//Explaination: To find out the typeof when the all the operation get complete thrn have to enclose in paranethisis. If we add + plus sign to any string it will convert to a number.
+----------------------------------------------------------------------------------------
+let data = [1,2,3].map( num =>{
+  if (typeof num === 'number') return;
+  return num*2;
+})
+console.log(data); //[undefined,undefined,undefined]
+//Explaination: If jusr return then it will print undefined.
+----------------------------------------------------------------------------------------
+function getInfo(member){
+  member.name = "priya";
+}
+const person = {name : "supriya"}
+getInfo(person);
+console.log(person); //{"name":"priya"}
+//Explaination: If we pass an object as argument it will have call by refrence, means having same memory location.
+----------------------------------------------------------------------------------------
+function Car(){
+  this.make = "tata";
+  return {make: "kia"};
+}
+const myCar = new Car();
+console.log(myCar.make); //kia
+//Explaination: return will overrite the property.If we didn't return then it will print tata.
+----------------------------------------------------------------------------------------
+(()=>{
+  let x = (y = 10);
+})()
+console.log(typeof x, y); //"undefined" //10
+//Explaination: x is a block scope, and we are trying to console x outside of x so that's why undefined.
+-----------------------------------------------------------------------------------------
+(()=>{
+  let x = y = 10;
+})()
+console.log(typeof y); //number
+//Explaination: x is a block scope, and y is a var because y is not declared so by default it will be var.
+----------------------------------------------------------------------------------------
+(()=>{
+  let x = 10;
+})();
+(()=>{
+  let x = 10;
+})();
+console.log(typeof x); //undefined
+//Explaination: x is a block scope.
+---------------------------------------------------------------------------------------
+(()=>{
+  let x = y = 10;
+})();
+(()=>{
+  let x = y = 20;
+})();
+console.log(y); //20
+//Explaination: y is a var scope so it will overrite from 10 to 20
+-----------------------------------------------------------------------------------------
+let x =100;
+(()=>{
+  var x = 10;
+})();
+console.log(x); //100
+//Explaination: x=10 contain inside a block because we already declare with 100 outside so it will print 100.
+-------------------------------------------------------------------------------------------
+const func = (function(a){
+                   delete a;
+                   return a;
+               } )(5)
+console.log(func);
+
+output: 5
+//delete keyword only use with object properties. here a is a variable so it will not work the variable. //delete user.age 
+------------------------------------------------------------------------------------------
+Dynamic property of object :
+const property = "firstName";
+const name = "Priya";
+
+const user = {
+  property : name //{"property" : "Priya"}
+}
+console.log(user);
+
+const user1 = {
+  [property] : name //dynamic property required [] //{"firstName" : "Priya"}
+}
+console.log(user1);
+------------------------------------------------------------------------------------------
+const user ={
+  name : "priya",
+  age : 100
+}
+
+//iterate through keys
+for(let item in user){
+  console.log(item) //name age
+}
+//iterate through values
+for(let item in user){
+  console.log(user[item]) //priya 100
+}
+------------------------------------------------------------------------------------------
+const user ={
+  name : "priya",
+  age : 100
+}
+
+//double the age as 200 //iterate through keys
+for(let item in user){
+ if(typeof user[item] === "number"){
+   user[item]*=2
+ }
+}
+
+console.log(user)
+------------------------------------------------------------------------------------------
+const a = {}
+const b = {key : "b"}
+const c = {key : "c"}
+
+a[b] = 123;
+a[c] = 456;
+console.log(a[b]); //456
+
+//console.log(a) //{"[object Object]" : 456}
+//here object is not converted into a string so printing key as object Object.
+//so for both it will be 
+//a["[object Object]"] = 123;
+//a["[object Object]"] = 456;
+//it get override by 456.
+------------------------------------------------------------------------------------------
