@@ -2771,3 +2771,270 @@ console.log(a[b]); //456
 //a["[object Object]"] = 456;
 //it get override by 456.
 ------------------------------------------------------------------------------------------
+
+
+
+
+//20/12/2022
+
+
+
+//Explaination: We try to empty the objecti,e person, but still an array i.e, numbers conatin value so it will not create an impact while assigning null to person.
+----------------------------------------------------------------------------------
+const person = {name: "priya", age: 1000};
+for(const item in person){
+  console.log(item); //name, age
+}
+//Explaination: For in loop give a keys only.
+--------------------------------------------------------------------------------------
+let data = 3+4+'5';
+console.log(data); //"75"
+console.log(typeof data); //string
+//Explaination: It will add as a string.
+------------------------------------------------------------------------------------------
+console.log(typeof 3+4+'5'); //"number45"
+//Explaination: operation went from left to right side.
+----------------------------------------------------------------------------------------
+console.log(typeof (3+4+'5')); //"75" //string
+console.log(typeof (3+4+  +'5'));//number
+//Explaination: To find out the typeof when the all the operation get complete thrn have to enclose in paranethisis. If we add + plus sign to any string it will convert to a number.
+----------------------------------------------------------------------------------------
+let data = [1,2,3].map( num =>{
+  if (typeof num === 'number') return;
+  return num*2;
+})
+console.log(data); //[undefined,undefined,undefined]
+//Explaination: If jusr return then it will print undefined.
+----------------------------------------------------------------------------------------
+function getInfo(member){
+  member.name = "priya";
+}
+const person = {name : "supriya"}
+getInfo(person);
+console.log(person); //{"name":"priya"}
+//Explaination: If we pass an object as argument it will have call by refrence, means having same memory location.
+----------------------------------------------------------------------------------------
+function Car(){
+  this.make = "tata";
+  return {make: "kia"};
+}
+const myCar = new Car();
+console.log(myCar.make); //kia
+//Explaination: return will overrite the property.If we didn't return then it will print tata.
+----------------------------------------------------------------------------------------
+(()=>{
+  let x = (y = 10);
+})()
+console.log(typeof x, y); //"undefined" //10
+//Explaination: x is a block scope, and we are trying to console x outside of x so that's why undefined.
+-----------------------------------------------------------------------------------------
+(()=>{
+  let x = y = 10;
+})()
+console.log(typeof y); //number
+//Explaination: x is a block scope, and y is a var because y is not declared so by default it will be var.
+----------------------------------------------------------------------------------------
+(()=>{
+  let x = 10;
+})();
+(()=>{
+  let x = 10;
+})();
+console.log(typeof x); //undefined
+//Explaination: x is a block scope.
+---------------------------------------------------------------------------------------
+(()=>{
+  let x = y = 10;
+})();
+(()=>{
+  let x = y = 20;
+})();
+console.log(y); //20
+//Explaination: y is a var scope so it will overrite from 10 to 20
+-----------------------------------------------------------------------------------------
+let x =100;
+(()=>{
+  var x = 10;
+})();
+console.log(x); //100
+//Explaination: x=10 contain inside a block because we already declare with 100 outside so it will print 100.
+-------------------------------------------------------------------------------------------
+const func = (function(a){
+                   delete a;
+                   return a;
+               } )(5)
+console.log(func);
+
+output: 5
+//delete keyword only use with object properties. here a is a variable so it will not work the variable. //delete user.age 
+------------------------------------------------------------------------------------------
+Dynamic property of object :
+const property = "firstName";
+const name = "Priya";
+
+const user = {
+  property : name //{"property" : "Priya"}
+}
+console.log(user);
+
+const user1 = {
+  [property] : name //dynamic property required [] //{"firstName" : "Priya"}
+}
+console.log(user1);
+------------------------------------------------------------------------------------------
+const user ={
+  name : "priya",
+  age : 100
+}
+
+//iterate through keys
+for(let item in user){
+  console.log(item) //name age
+}
+//iterate through values
+for(let item in user){
+  console.log(user[item]) //priya 100
+}
+------------------------------------------------------------------------------------------
+const user ={
+  name : "priya",
+  age : 100
+}
+
+//double the age as 200 //iterate through keys
+for(let item in user){
+ if(typeof user[item] === "number"){
+   user[item]*=2
+ }
+}
+
+console.log(user)
+------------------------------------------------------------------------------------------
+const a = {}
+const b = {key : "b"}
+const c = {key : "c"}
+
+a[b] = 123;
+a[c] = 456;
+console.log(a[b]); //456
+
+//console.log(a) //{"[object Object]" : 456}
+//here object is not converted into a string so printing key as object Object.
+//so for both it will be 
+//a["[object Object]"] = 123;
+//a["[object Object]"] = 456;
+//it get override by 456.
+------------------------------------------------------------------------------------------
+const user = {
+  name :"priya",
+  age : 100
+}
+//convert into a string
+const str = JSON.stringify(user)
+console.log(str)//{'name':'priya','age':100}"
+
+//convert string onto an object
+console.log(JSON.parse(str)) //{ name : "priya, "age":100}
+
+
+*****************
+Real Usecases : Storing in local storage. We can't store the object as a value so require to convert into a string.
+const user = {
+  name :"priya",
+  age : 100
+}
+console.log(JSON.stringify(user)) //convert into a string
+console.log(JSON.parse(JSON.stringify(user)))  //convert into an object
+localStorage.setItem("testAsKey", JSON.stringify(user)) {"name":"priya","age":100}
+localStorage.setItem("testAsKey", user) //[object Object] beacuse we are forcefully trying to convert in a string
+JSON.parse(localStorage.getItem("testAsKey")) //will get as a object
+------------------------------------------------------------------------------------------
+const user = {
+  name :"priya",
+  age : 100
+}
+console.log(JSON.stringify(user,["name"])) //"{'name':'priya'}"
+//wheen we pass as a array then it will convernt only those properties and ignore rest of the proerties
+------------------------------------------------------------------------------------------
+const shape = {
+  radius : 10,
+  diameter(){
+    return this.radius*2; //this pointing to shape
+  }
+ parimeter : () => 2*Math.PI*this.radius; //this pointing to window where it's not exist
+}
+console.log(shape.diameter()) //20
+//console.log(shape.parimeter()) //Nan
+-------------------------------------------------------------------------------------------
+let user = {
+  name : "Priya",
+  age : 100
+}
+
+const name = "Supriya";
+//const {name} = user; //Identifier 'name' has already been declared 
+const {name : myName} = user;
+
+console.log(myName) //Priya
+-------------------------------------------------------------------------------------------
+let user = {
+  age : 100,
+  fullName : {
+    first : "Priya",
+    last : "Bagde"
+  }
+}
+
+const {fullName : {first}} = user;
+console.log(first); //"Priya"
+//Destructuring at deep nested
+-------------------------------------------------------------------------------------------
+let c = {greeting : "Hey!"}
+let d;
+
+d=c;
+c.greeting = "Hello"
+console.log(d.greeting); //Hello
+//We are passing the refrence not the propertues of an object so when we changge the roperty of any object it will reflect in both objects
+-------------------------------------------------------------------------------------------
+let person = {name : "priya"}
+const members = [person]
+person = null
+console.log(members);// [{"name":"priya"}]
+
+let person = {name : "priya"}
+const members = [person]
+person.name = null
+console.log(members);// [{"name":null}]
+//because we are modifying the property of object
+-------------------------------------------------------------------------------------------
+Ways to make deep copy:
+1. object.assign
+2. {...obj}
+3. JSON.parse(JSON.stringyfy(obj))
+-------------------------------------------------------------------------------------------
+console.log(1);
+
+function print(name){
+  setTimeout(()=>{
+    return `${name}`
+  },1000)
+}
+let value = print("Priya");
+console.log(value)
+
+console.log(2);
+Reason : It run the code quickly and it will not wait for setTimeout so value will be undefined
+---------------------------------------------------
+Above code can be fix by callback:
+console.log(1);
+function print(name, cb){
+  setTimeout(()=>{
+     cb(`${name}`)
+  },1000)
+}
+print("Priya", (value)=>{
+  console.log(value)
+});
+console.log(2);
+-------------------------------------------------------------------------------------------
