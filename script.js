@@ -3181,3 +3181,305 @@ function checkPalindrome(){
 }
 checkPalindrome()
 ================================================================================================================================================================================
+
+  //22/12/2022
+  
+  
+  
+  
+  
+  Code 13: To find longest word from a string using (for of) /*for(var i=0; i>=num; i++) means iterate by indexing*/  /*for (var word of words) means iterate by an elements not 
+by indexing*/
+function longestWord(){
+   let string = "supriya is a masooooom good girl"
+   var words= string.split(' ')
+   var longest=" "
+   for(var word of words){
+        console.log(word)
+        if (word.length > longest.length)
+        {
+            longest=word;
+         }
+   }
+    return longest.length
+}
+longestWord()
+---------------------------
+function longestWord(){
+   let string = "supriya is a hahahahaha good girl"
+   var arr= string.split(' ')
+   var longest=" "
+   for(var i=0; i<arr.length; i++){
+      
+        if (arr[i].length > longest.length)
+        {
+            longest=arr[i];
+        }
+   }
+   return longest
+}
+console.log(longestWord())
+================================================================================================================================================================================
+Code 14: To find longest word from a string using functions
+function findLongestWord() {
+  var str = "Priya is a goog girl and having hardworking skill"
+  var longestWord = str.split(' ').sort((a, b) => {return b.length - a.length }); //in desc order //from greater to smallest word
+     console.log(longestWord[0]);
+     console.log(longestWord[0].length); 
+}
+findLongestWord();
+================================================================================================================================================================================
+Code 15: To find longest word from a string using custom code
+function longest() {
+  var str ="Priya is a good girl and having hardworking skills"
+  var words = str.split(' ');
+  var longest = ''; 
+  for (var i = 0; i < words.length; i++) {
+    if (words[i].length > longest.length) {
+      longest = words[i]; 
+    }
+  }
+  console.log(longest)
+  return longest;
+}
+longest();
+================================================================================================================================================================================
+Code 16: To find longest common string from array of strings
+function longestCommonString(){
+  array=["go","google","gosh"]
+  var arr = array.sort()
+  var i=0;
+  while(arr[0].length>0 && arr[0].charAt(i)===arr[arr.length-1].charAt(i)){
+    i++;
+  }
+  console.log(arr[0].substring(0,i)) // "go"
+  return arr[0].substring(0,i)
+}
+longestCommonString() 
+--------------------------------------------------------------------
+function longestCommonString(){
+  array=["got","google","gosh"]
+  var arr = array.sort()
+  var i=0;
+  while(arr[0].length>0 && arr[0][i]===arr[arr.length-1][i]){
+    i++;
+  }
+  console.log(arr[0].slice(0,i))
+}
+longestCommonString() 
+--------------------------------------------------------------------
+function longestCommonString(){
+ let array=["go","google","gosh"]
+  var arr = array.sort((a,b)=>a.length-b.length)
+  let result =""
+  for(let i=0; i<arr[0].length; i++){
+    if(arr[0][i]===arr[arr.length-1][i]){
+      result+=arr[0][i]
+    }
+  }
+  return result
+}
+console.log(longestCommonString())
+================================================================================================================================================================================
+Code 17: To find vowels and its count in a given string
+function vowelCounts(){
+  vowels=["a","i","e","o","u"]
+  var str ="priya"
+  count=0;
+  for(var letter of str.toLowerCase())
+  {
+    if(vowels.includes(letter))
+    {
+      count++;
+      console.log(letter)
+    }
+  }
+  console.log(count)
+  return count
+}
+vowelCounts()
+================================================================================================================================================================================
+Code 18:To find character occurance fro the string
+function characterOccurance(str,letter){
+   let count =0;
+  for(var i=0; i<str.length-1; i++){
+    if(str.charAt(i)===letter)
+      {
+        count++
+      }
+  }
+  console.log(count)
+  return count
+}
+characterOccurance("priyapri", "p")
+================================================================================================================================================================================
+Code 19: To find a first pair whose sum is zero
+function getSumPairZero(array)
+{
+  for(let number of array)
+  {
+     for(let i=1; i<array.length; i++)
+     {
+         if(number+array[i]===0)
+         {
+            return [number, array[i]]
+         }
+     }
+  }
+}
+const result = getSumPairZero([-5,-4,-3,-2,-1,0,1,2,3,4,5])
+console.log(result)
+------------------------------------------------
+function getSumPairZero(array)
+{
+  for(let j=0; j<array.length;j++)
+  {
+     for(let i=1; i<array.length; i++)
+     {
+         if(array[j]+array[i]===0)
+         {
+            return [array[j], array[i]]
+         }
+     }
+  }
+}
+const result = getSumPairZero([-5,-4,-3,-2,-1,0,1,2,3,4,5])
+console.log(result)
+================================================================================================================================================================================
+Code 20: To find a first pair whose sum is zero using indexing //Firstly do a sort here
+function getSumPairZero(array)
+{
+  let left = 0;
+  let right = array.length-1;
+  while(left<right)
+  {
+    sum = array[left]+array[right]
+    if(sum===0){
+       return [array[left],array[right]]
+    }else if(sum>0){
+      right--;
+    }else{
+      left++;
+    }
+  }
+}
+const result = getSumPairZero([-5,-4,-3,-2,-1,0,2,4,6,8])
+console.log(result)
+================================================================================================================================================================================
+Code 21: To find the largest pair of the 2 elements using indexing with unsorted elements
+function largestPairSumofTwo(numbers){
+    const num = numbers.sort((a, b) => b - a);
+    console.log(num)
+    return num[0] + num[1];
+}
+const result = largestPairSumofTwo([9,7,8,4,5,6,1,2,3])
+console.log(result)
+================================================================================================================================================================================
+Code 22: To find the largest pair of the 2 elements using indexing with sorted elements
+function largestPairSumofTwo(num){   
+    return num[num.length-1] + num[num.length-2];
+}
+const result = largestPairSumofTwo([1,2,3,4,5,6,7,8,9])
+console.log(result)
+================================================================================================================================================================================
+Code 23: To find the index of an element from an array
+const letters = ['a', 'b', 'c']
+const index = letters.indexOf('b')
+console.log(index) // `1`
+================================================================================================================================================================================
+Code 24: Fibonacci Series (0,1,1,2,3,5,8,13....)
+function fibonacciSeries(){
+   const number = parseInt(prompt('Enter the number of terms: '));
+   let n1 = 0, n2 = 1, nextTerm, arr=[]
+   arr.push(n1)
+   arr.push(n2)
+   for (let i = 1; i <= number; i++) 
+   {
+     console.log(n1);
+     nextTerm = n1 + n2;
+     n1 = n2;
+     n2 = nextTerm;
+     arr.push(nextTerm)
+   }
+   return arr
+}
+console.log(fibonacciSeries())
+================================================================================================================================================================================
+Code 25: Fibonacci Series (0,1,1,2,3,5,8,13....) where keeping in array
+function listFibonacci(n) {
+var arr = [0, 1]
+  for (var  i = 1; i < n; i++) 
+    arr.push(arr[i] + arr[i - 1])
+
+  return arr
+}
+console.log(listFibonacci(4))
+-----------------------------------------------------------------------
+function listFibonacci(n) {
+var arr = [0, 1]
+  for (var  i = 0; i < n; i++) 
+    arr.push(arr[i] + arr[i + 1])
+
+  return arr
+}
+console.log(listFibonacci(4))
+================================================================================================================================================================================
+Code 26: Finding a missing elements in an array and then add with existing elements. (-1 means if elements not found then it will return always -1 as per rule)
+function missingElement(){
+  var a = [1,2,5]
+  var missing = [];
+  for (var i = 1; i <= 6; i++) 
+   {
+    if (a.indexOf(i) == -1) 
+     {
+       missing.push(i); 
+     }
+   }
+ console.log(missing) //missing array
+ console.log(a.concat(missing).sort()); //actual+missing elements
+}
+missingElement()
+================================================================================================================================================================================
+Code 27: Find the missing no. in an array
+function missing(arr) {
+    var x = 0;
+    for (var i = 0; i < arr.length; i++) {
+        x = x + 1;
+        if (arr[i] != x) {
+            return(x); //9
+        }
+    }
+}
+missing([1, 2, 3, 4, 5, 6, 7, 8, 10])
+-------------------------------------------
+function missing(arr) {
+    for (var i = 0, x=1; i < arr.length; x++,i++) {
+        if (arr[i] != x) { //index value comparing with pointer
+            return x; //9
+        }
+    }
+}
+console.log(missing([1, 2, 3, 4, 5, 6, 7, 8, 10]))
+================================================================================================================================================================================
+Code 28: Sorting of an string/character
+function sorting(arr) {
+ return  arr.sort()
+}
+console.log(sorting(["d","g","y","e","r","p"]))
+================================================================================================================================================================================
+Code 29: Sorting of an number
+function sorting(arr) {
+ return  arr.sort((a,b)=>{return a-b}) 
+}
+console.log(sorting([1,23,34,2,76,78])) //[1, 2, 23, 34, 76, 78]
+================================================================================================================================================================================
+Code 30: To check if given number is prime or not
+function isPrime(num) {
+  if(num < 2) return false;
+  for (let k = 2; k < num; k++){
+    if( num % k == 0){ return false}
+  }
+  return true;
+}
+console.log(isPrime(17)) //true
+=======================================================================================================================================
