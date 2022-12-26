@@ -3483,3 +3483,144 @@ function isPrime(num) {
 }
 console.log(isPrime(17)) //true
 =======================================================================================================================================
+  
+  
+  //26/12/2022
+  
+  
+  Code 31: To print all the numbers from 2 to 100
+for (let i = 2; i <= 100; i++) {
+    let flag = 0;
+    for (let j = 2; j < i; j++) {
+        if (i % j == 0) {
+            flag = 1;
+            break;
+        }
+    }
+    if (i > 1 && flag == 0) {
+        console.log(i);
+    }
+}
+--------------------------------------
+for (let i = 2; i <= 100; i++) 
+{
+    let flag = 0;
+    for (let j = 2; j < i; j++) { //2<2 //2<3 //3<4
+        if (i % j == 0) {
+            flag = 1;
+            break;
+        }
+    }
+    if (i > 1 && flag == 0) 
+    {
+        document.write(i+ "</br>");
+    }
+}
+================================================================================================================================================================================
+Code 32: To find unique values from 2 arrays and keep into one array.
+function uniqueElements(arr1,arr2){
+   let arr =[...arr1,...arr2];
+   let array =[...new Set(arr)]
+   console.log(array)
+}
+uniqueElements([1,2,3,4,4],[2,3,4,5,6])
+================================================================================================================================================================================
+Code 33: Find first duplicate element from an array
+function firstDuplicate() {
+    let arr = [1,2,2,5,5];
+    let data = {};
+    for (var item of arr) {
+        if (data[item]) {
+            return item
+        } else {
+            data[item] = item
+            console.log(data[item])
+        }
+    }
+    return -1
+}
+console.log(firstDuplicate()) 
+================================================================================================================================================================================
+Code 34: Write a program that prints the numbers from 1 to 100. But for multiples of three, print "Fizz" instead of the number, and for the multiples of five, print "Buzz". 
+For numbers which are multiples of both three and five, print "FizzBuzz"
+for (var i=1; i <= 20; i++)
+{
+    if (i % 15 == 0)
+        console.log("FizzBuzz");
+    else if (i % 3 == 0)
+        console.log("Fizz");
+    else if (i % 5 == 0)
+        console.log("Buzz");
+    else
+        console.log(i);
+}
+================================================================================================================================================================================
+Code 35: Uppercase of each first letter of a words 
+function upperCaseFirsstLetter(){
+   var string ="India is my country";
+   var words = string.toLowerCase().split(" ")
+   for( var i=0; i<words.length; i++) {
+      words[i]=words[i][0].toUpperCase() + words[i].slice(1) //slice is used here to give all the letters except first letter.
+      }
+   return words.join(" ")
+}
+console.log(upperCaseFirsstLetter())
+================================================================================================================================================================================
+Code 36: Uppercase of each first letter of a words using map function
+function upperCaseFirsstLetter(){
+   var string ="India is my country";
+   var words = string.toLowerCase().split(" ").map((ele)=>{
+               return ele[0].toUpperCase() + ele.slice(1)
+   })
+   return words.join(" ")
+}
+console.log(upperCaseFirsstLetter())
+================================================================================================================================================================================
+Code 37: To check ending of the string with given character/s using inbuild function
+function confirmEnding(str,target){
+   return str.endsWith(target) //true
+}
+console.log(confirmEnding("priya","a"))
+===============================================================================================================================================================================
+Code 38: To check ending of the string with given character/s using custom
+function confirmEnding(str,target){
+   return str.substr(-target.length)===target
+}
+console.log(confirmEnding("priya","a"))
+===============================================================================================================================================================================
+Code 39: To find the largest elements fro the 2 dimensional array 
+function largestFromArray(arr){
+   var max=[];
+   for(var i=0; i<arr.length;i++){
+     var tempMax =arr[i][0] //first elements of the 4 internal arrays i,e(1,5,45,89
+     for(var j=0; j<arr[i].length; j++){
+        var currElement = arr[i][j];
+        if(currElement>=tempMax){
+          tempMax = currElement
+        }
+     }
+      max.push(tempMax)
+   }
+  console.log(max)
+   return max;
+}
+largestFromArray([[1,2,3,4],[5,6,7,9],[45,76,2,1],[89,90,87,9]])
+================================================================================================================================================================================
+Code 40: To find the largest elements fro the 2 dimensional array in another way
+function largestFromArray(arr){
+   var max=[0,0,0,0];
+   for(var i=0; i<arr.length;i++){
+      for(var j=0; j<arr[i].length; j++)
+      {
+          if(arr[i][j]>=max[i]){
+          max[i] = arr[i][j]
+        }
+      }
+   }
+  console.log(max)
+  return max;
+}
+largestFromArray([[1,2,3,4],[5,6,7,9],[45,76,2,1],[89,90,87,9]])
+================================================================================================================================================================================
+  
+  
