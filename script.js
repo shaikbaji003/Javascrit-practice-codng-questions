@@ -3624,3 +3624,138 @@ largestFromArray([[1,2,3,4],[5,6,7,9],[45,76,2,1],[89,90,87,9]])
 ================================================================================================================================================================================
   
   
+
+  
+  
+  //27/12/2022
+  
+  
+  
+  
+  
+  Code 41: Print string n times using inbuilt function
+function repeatStrinNumTimes(str, num){
+if (num<1) return ""
+return str.repeat(num)
+}
+console.log(repeatStrinNumTimes("priya",3))
+================================================================================================================================================================================
+Code 42: Print string n times in custom way
+function repeatStrinNumTimes(str, num){
+var final="";
+if(num<0) return ""
+for(var i=0; i<num;i++)
+{
+  final=final+str
+}
+return final
+}
+console.log(repeatStrinNumTimes("priya",3))
+================================================================================================================================================================================
+Code 43:Print string n times in custom way
+function repeatStrinNumTimes(str, num){
+if(num<0) return ""
+if(num===1) return str
+return str+ repeatStrinNumTimes(str, num-1)
+}
+console.log(repeatStrinNumTimes("priya",3))
+================================================================================================================================================================================
+Code 44: Truncate the string
+function truncateString(str, num){
+if(num<=3) return str.slice(0,num)
+return str.slice(0,num-3)+"..." //retuen only 4 digits thats why subtracted from 3
+}
+console.log(truncateString("priyabagde",2)) //pr
+console.log(truncateString("priyabagde",4)) //p... //retuen only 4 digits
+================================================================================================================================================================================
+Code 45: Converting one dimensional array into n dimensional array using slice
+function chunkArrayInGroup(arr, size){
+  var group=[]
+  while(arr.length>0){
+  group.push(arr.slice(0, size))
+  arr = arr.slice(size)
+  }
+  return group
+}
+console.log (chunkArrayInGroup(['a','b','c','d'],2)) //[["a", "b"], ["c", "d"]]
+================================================================================================================================================================================
+Code 46: Converting one dimensional array into n dimensional array using splice
+function chunkArrayInGroup(arr, size){
+  var group=[]
+  while(arr.length>0){
+  group.push(arr.splice(0, size))
+  }
+  return group
+}
+console.log (chunkArrayInGroup(['a','b','c','d'],2)) //[["a", "b"], ["c", "d"]]
+================================================================================================================================================================================
+Code 47: To find only truthy values
+function removeFalseValue(arr){
+ var trueth = []
+ for (var item of arr){
+   if(item){
+      trueth.push(item)
+   }
+ }
+ return trueth
+}
+console.log(removeFalseValue(["priya", 0 ,"", false, null,undefined, "ate", Nan ,9 ])) //["priya","ate",9]
+================================================================================================================================================================================
+Code 49:  To find only truthy values using filter
+function removeFalseValue(arr){
+  return arr.filter((item)=>{
+                return item})
+}
+console.log(removeFalseValue(["priya", 0 ,"", false, null,undefined, "ate", 9 ]))
+================================================================================================================================================================================
+Code 50: Checking all letters of second words should present in first word, in the same order using include function
+function characterPresent(arr){
+  var first = arr[0].toLowerCase()
+  var second = arr[1].toLowerCase()
+  for (var letter of second){
+    if(!first.includes(letter)){
+      return false
+    }
+  }
+  return true
+}
+console.log(characterPresent(["hello","hey"]))
+================================================================================================================================================================================
+Code 51: Checking all letters of second words should present in first word, in the same order using indexOf without indexing i.e for-of loop
+function characterPresent(arr){
+  var first = arr[0].toLowerCase()
+  var second = arr[1].toLowerCase()
+  for (var letter of second){
+    if(first.indexOf(letter)== -1){ //-1 means not found in array
+      return false
+    }
+  }
+  return true
+}
+console.log(characterPresent(["hello","he"]))
+---------------------------------------------------
+function characterPresent(arr){
+  var first = arr[0].toLowerCase()
+  var second = arr[1].toLowerCase()
+  for (var i=0; i<second.length; i++){
+    if(!first.includes(second[i])){ //-1 means not found in array
+      return false
+    }
+  }
+  return true
+}
+console.log(characterPresent(["hello","he"]))
+================================================================================================================================================================================
+Code 52: Checking all letters of second words should present in first word, in the same order using indexOf with indexing
+function characterPresent(arr){
+  var first = arr[0].toLowerCase()
+  var second = arr[1].toLowerCase()
+  for (var i=0; i<second.length; i++){
+    if(first.indexOf(second)== -1){ //-1 means not found in array
+      return false
+    }
+  }
+  return true
+}
+console.log(characterPresent(["hello","he"]))
+=============================================
