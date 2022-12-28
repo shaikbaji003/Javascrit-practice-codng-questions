@@ -3759,3 +3759,362 @@ function characterPresent(arr){
 }
 console.log(characterPresent(["hello","he"]))
 =============================================
+  
+  
+ //28/12/2022
+  
+  
+  Code 55: Remove Duplicates from 2 arrays using Set
+function uniquefromArrays(arr1, arr2){
+ let arr = [...arr1, ...arr2]
+ let unique = [...new Set(arr)];
+ return unique
+}
+console.log(uniquefromArrays([1,2,3,4], [2,3,4,5])) //[1,2,3,4,5]
+================================================================================================================================================================================
+code 56: Sum of all numbers from start to end given number
+function sumFromStartToEnd(arr){
+  var start = Math.min(arr[0], arr[1])
+  var end = Math.max(arr[0], arr[1])
+  sum =0
+  for(var i= start; i<=end; i++){
+    sum+=i
+  }
+  return sum
+}
+console.log(sumFromStartToEnd([1,4]))
+================================================================================================================================================================================
+code 57: Remove or Delete elements from an array using various ways
+Way 1: Removing Elements from End of a JavaScript Array
+       var ar = [1, 2, 3, 4, 5, 6]; 
+       ar.length = 4; // set length to remove elements
+       console.log( ar ); // [1, 2, 3, 4]
+    
+Way 2: Removing Elements from Beginning of a JavaScript Array
+        var ar = ['zero', 'one', 'two', 'three'];
+        ar.shift(); // returns "zero"
+        console.log( ar ); // ["one", "two", "three"]
+        
+Way 3: Using Splice to Remove Array Elements in JavaScript
+        var list = ["bar", "baz", "foo", "qux"];
+        list.splice(0, 2); // Starting at index position 0, remove two elements ["bar", "baz"] and retains ["foo", "qux"].
+        
+Way 4: Removing Array Items By Value Using Splice
+       var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+       for( var i = 0; i < arr.length; i++){ 
+           if ( arr[i] === 5) { 
+              arr.splice(i, 1); 
+           }
+       } // [1, 2, 3, 4, 6, 7, 8, 9, 0]
+       
+       OR
+       
+        var arr = [1, 2, 3, 4, 5, 5, 6, 7, 8, 5, 9, 0];
+        for( var i = 0; i < arr.length; i++){                             
+        if ( arr[i] === 5) { 
+            arr.splice(i, 1); 
+            i--; 
+          }
+        } // [1, 2, 3, 4, 6, 7, 8, 9, 0]
+        
+Way 5: Using the Array filter Method to Remove Items By Value
+        var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+        var filtered = array.filter(function(value, index, arr){ 
+        return value > 5;
+        }); //filtered => [6, 7, 8, 9]
+   
+Way 6: Making a Remove Method
+       function arrayRemove(arr, value) { 
+        return arr.filter(function(ele){ 
+            return ele != value; 
+        });
+    }
+    var result = arrayRemove(array, 6); // result = [1, 2, 3, 4, 5, 7, 8, 9, 0]
+    
+Way 7: Explicitly Remove Array Elements Using the Delete Operator
+         var ar = [1, 2, 3, 4, 5, 6];
+         delete ar[4]; // delete element with index 4
+         console.log( ar ); // [1, 2, 3, 4, undefined, 6]
+================================================================================================================================================================================
+Code 58 : Spiral Matrix Printing | Print the elements of a matrix in spiral form
+var input = [[1,  2,   3,  4],
+             [5,  6,   7,  8],
+             [9,  10, 11, 12],
+             [13, 14, 15, 16]];
+function run(input, result) {
+    // add the first row to result
+    result = result.concat(input.shift());
+    console.log("res1", result) //[1, 2, 3, 4] //[1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7]
+    console.log("in1", input)   //[[5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]] // [[10, 11]]
+
+    // add the last element of each remaining row
+    input.forEach(function(rightEnd) {
+        result.push(rightEnd.pop());
+    });
+    console.log("res2", result) //[1, 2, 3, 4, 8, 12, 16] //[1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7, 11]
+    console.log("in2", input)   //[[5, 6, 7], [9, 10, 11], [13, 14, 15]] // [[10]]
+
+    // add the last row in reverse order
+    result = result.concat(input.pop().reverse());
+    console.log("res3", result) //[1, 2, 3, 4, 8, 12, 16, 15, 14, 13] //[1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7, 11, 10]
+    console.log("in3", input)   //[[5, 6, 7], [9, 10, 11]]
+
+    // add the first element in each remaining row (going upwards)
+    var tmp = [];
+    input.forEach(function(leftEnd) {    
+        tmp.push(leftEnd.shift());
+    });
+    console.log("res4", result) //[1, 2, 3, 4, 8, 12, 16, 15, 14, 13]
+    console.log("in4", input)   //[[6, 7], [10, 11]]
+    
+    result = result.concat(tmp.reverse());
+    console.log("temp", temp) //[9, 5]
+    console.log("res5", result) //[1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5]
+    console.log("in5", input)   //[[6, 7], [10, 11]]
+    
+    //again start the function
+    return run(input, result); 
+}
+console.log('result', run(input, [])); // [1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10]
+================================================================================================================================================================================
+Code 59: Currying function i.e sum of multiple argument functions //inner function can access outer function variables but outer functions can't able to acceess inner function.
+function sum(a){
+  return function sum(b){
+    return function sum(c){
+      return function sum(d){
+         return a+b+c+d;
+      }
+    }
+  }
+}
+console.log(sum(1)(2)(3)(4))
+
+OR
+
+const sum = (a) => (b) => (c) => (d) => a+b+c+d // using ES6
+console.log(sum(1)(2)(3)(4))
+================================================================================================================================================================================
+Code 60: Find SUM, PRODUCT AND AVERAGE of the numbers //accumulation means collection
+let arr=[1,2,3,4,5]
+let sum = arr.reduce((accum, curr) =>{
+    return accum + curr;
+})
+console.log(sum) //15
+
+OR
+
+let sum = arr.reduce((accum, curr) =>{
+    return accum + curr;
+},5) // can set initial value as 5 also
+console.log(sum) //20
+
+
+let product = arr.reduce((accum, curr) =>{
+    return accum * curr;
+})
+console.log(product)//120
+
+let average = arr.reduce((accum, curr, index, array) =>{
+    let total = accum + curr;
+    if(index === array.length-1){
+       return total/array.length
+    }
+    return total
+})
+console.log(average)//3
+================================================================================================================================================================================
+Code 61: Convert 2D/3D array into 1D using reduce function and inbuilt function i.e flat
+const arr = [
+               ['a','b'],
+               ['c','d'],
+               ['e','f'],
+            ]
+const flatArr = arr.reduce((accum, curr)=>{
+return accum.concat(curr)
+})
+console.log(flatArr) //["a", "b", "c", "d", "e", "f"]
+
+OR
+
+const arr = [
+['a','b'],
+['c','d'],
+['e',['f','g']],
+]
+console.log(arr.flat(2)) //["a", "b", "c", "d", "e", "f"] //bydefault 1 hota h as a argument
+
+OR
+
+const arr = [
+['a','b'],
+['c','d'],
+['e',['f',['g','h']]],
+]
+console.log(arr.flat(3)) //["a", "b", "c", "d", "e", "f", "g", "h"]
+================================================================================================================================================================================
+code 62: Reverse of a nuber using converting into string
+function reverseNumber(input){
+return(
+    parseFloat(input.toString().split('').reverse().join(''))*Math.sign(input)
+)
+}
+console.log(reverseNumber(123)) //321
+================================================================================================================================================================================
+code 63: Reverse of a nuber
+function reverseNumber(input){
+var result=0;
+while(input!=0){ //123 //12 //1
+    result = result *10; //0*10=0 //3*10=30 // 32*10 =320
+    result = result + (input%10) //give reminder // 0+3=3 // 30+2=32 //320+1=321
+    input = Math.floor(input/10) //12 //1
+   // console.log("in", input)
+  }
+  
+  return result
+}
+console.log(reverseNumber(123)) //321
+================================================================================================================================================================================
+code 64: Check Armstrong Number
+function CheckArmstrongNum(num){ //153
+  var temp = num;
+  var result =0;
+  var a;
+  while(temp>0){ //153 //15 //1
+    a= temp%10; //3 //5 //1
+    temp= parseInt(temp/10) //15 // 1
+    result= result+a*a*a //0+3*3*3 // 27+ 5*5*5 // 27+ 5*5*5 +1*1*1
+  }
+  if(result==num){
+    return true
+  }
+  return false
+}
+console.log(CheckArmstrongNum(153)) //3*3*3 + 5*5*5 + 1*1*1 
+================================================================================================================================================================================
+code 65: To find the closest number in an array
+const needle = 5;
+const numbers = [1, 10, 7, 2, 4, 9];
+numbers.sort((a, b) => {
+    return Math.abs(needle - a) - Math.abs(needle - b);
+})
+console.log(numbers[0]);
+================================================================================================================================================================================
+code 66: To find the second largest number
+function secondLargestNum(arr){
+  return arr.sort((a, b)=> b - a )[1]
+}
+console.log(secondLargestNum(['1', '2', '3', '4', '9']))
+================================================================================================================================================================================
+code 67: To check whether particular word/number present in sentence or not using inbuilt function
+function wordInSentence(str){
+  return str.includes("world"); //true
+}
+console.log(wordInSentence("Hello world, welcome to the universe."))
+OR
+var nums =[0,1,3,5,6,7,8,9,7]
+console.log(nums.includes(9)) //true
+OR
+var item=3
+console.log(nums.some(x => x === item)) //true
+================================================================================================================================================================================
+code 68: To check whether particular word/number present in sentence or not using custom function
+function checkValueExist(arr, item){
+  var status = "Not Exist"
+  for(var i=0; i<arr.length; i++){
+    if(arr[i]===item){
+      status = "Exist"
+      break;
+    }
+  }
+  return status
+}
+console.log(checkValueExist(['priya', 'riya', 'supriya'], 'priya'))
+================================================================================================================================================================================
+code 69: To check wheather property exist or not in object
+let student ={
+  name : "priya",
+  age: 20
+}
+console.log('name' in student)
+OR
+console.log(student.hasOwnProperty('name'))
+================================================================================================================================================================================
+code 70: To dlete the property of an object
+let student ={
+  name : "priya",
+  age: 20,
+  city: "pune"
+}
+delete student.age;
+console.log(student)
+OR
+delete student['name']
+console.log(student)
+================================================================================================================================================================================
+code 71: To find the length of the array in custom way
+function findLength(arr){
+  var len =0;
+  while(arr[len]!==undefined){
+    len++
+  }
+  return len;
+}
+console.log(findLength([50,60,70,80,90]))
+OR
+function findLength(arr){
+  return arr.length;
+}
+console.log(findLength([50,60,70,80,90]))
+================================================================================================================================================================================
+code 72: Star Pattern
+for(var i=1; i<=5;i++){ //use to create new row
+  for(var j=i; j<=5; j++){ //use to add in existing row
+    document.write("*")
+  }
+  document.write("<br/>")
+}
+*****
+****
+***
+**
+*
+================================================================================================================================================================================
+code 73: Star Pattern
+for(var i=1; i<=5;i++){ //use to create new row
+  for(var j=1; j<=5; j++){ //use to add in existing row
+    document.write("*")
+  }
+  document.write("<br/>")
+}
+*****
+*****
+*****
+*****
+*****
+================================================================================================================================================================================
+code 74: Star Pattern
+for(var i=1; i<=5;i++){ //use to create new row
+  for(var j=i; j<=5; j++){ //use to add in existing row
+    document.write(i)
+  }
+  document.write("<br/>")
+}
+11111
+2222
+333
+44
+5
+================================================================================================================================================================================
+code 75: Star Pattern
+for(var i=1; i<=5;i++){ //use to create new row
+  for(var j=i; j<=5; j++){ //use to add in existing row
+    document.write(j)
+  }
+  document.write("<br/>")
+}
+12345
+2345
+345
+45
+5
+================================================================================================================================================================================
