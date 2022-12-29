@@ -4118,3 +4118,322 @@ for(var i=1; i<=5;i++){ //use to create new row
 45
 5
 ================================================================================================================================================================================
+
+  
+//29/12/2022
+  
+  
+  code 77: To find the square root
+var num = [4, 9, 16, 25, 36]
+var result = num.map(Math.sqrt)
+console.log(result) //[2,3,4,5,6]
+================================================================================================================================================================================
+code 78: Make alternate character to upper case
+function alternateText(str){
+  var char = str.toLowerCase().split('')
+      for(var i=0; i <char.length; i=i+2){
+         char[i]=char[i].toUpperCase()
+      }
+  return char.join('')
+}
+console.log(alternateText("Priya Bagde")) //"PrIyA BaGdE"
+OR
+let alt = "Priya Bagde"
+alt = alt.split("")
+  .map((letter,index)=>(index%2)==0 ? letter.toUpperCase(): letter.toLowerCase())
+  .join("")
+console.log(alt) //"PrIyA BaGdE"
+================================================================================================================================================================================
+code 79:  To find the negative values in an array or 2D Array
+function countNegative(arr){
+  let count = 0;
+  for(let i=0;i<arr.length; i++){
+    for(let j=0; j<arr[i].length; j++){
+      if(arr[i][j]<0){
+        count++
+      }
+    }
+  }
+  return count;
+}
+console.log(countNegative([[1,-1],[-1,-1]]))
+================================================================================================================================================================================
+code 80: Find first repeating character with its index from an array
+function firstRepeatingIndex(arr){
+  let count = {};
+  for(let i=0;i<arr.length; i++){
+      if(count[arr[i]])
+      {
+        console.log("character", arr[i])
+        console.log("index", count[arr[i]])
+        return count[arr[i]] //if exist
+      }
+      else
+      {
+        count[arr[i]]=i //if not exist keep at count
+      }
+      console.log("count", count) 
+    }
+  return count   
+}
+firstRepeatingIndex([1,0,2,3,4,4,5,7,7])
+
+================================================================================================================================================================================
+code 81: To find all the subsets of the set
+function generateSubsets (arr) { //[1,2]
+  let subsets = [];
+  for (const item of arr) 
+  {
+    const tempSubsets = [...subsets];
+    console.log("tempSubsets",tempSubsets) //[]//[[1]]
+    for (const currSubset of tempSubsets) 
+    {
+      subsets.push([...currSubset, item]);
+      console.log("subsets",subsets) //not came//[[1], [1,2]]
+    }
+    subsets.push([item]);
+    console.log("subsets1",subsets) //[[1]]//[[1], [1,2],[2]]
+  }
+  subsets.push([]);
+  console.log("subsets2",subsets) //[[1], [1, 2], [2], []]
+  return subsets;
+}
+generateSubsets([1, 2]);
+OR
+function generateSubsets (arr) {
+  let subsets = [];
+  for (const item of arr) //[1,2] 
+  {
+    const tempSubsets = [...subsets];//[]//[[1]]
+    for (const currSubset of tempSubsets) 
+    {
+      subsets.push([...currSubset, item]);//not came//[[1], [1,2]]
+    }
+    subsets.push([item]); //[[1]]//[[1], [1,2],[2]]
+  }
+  subsets.push([]);//[[1], [1, 2], [2], []]
+  return subsets;
+}
+generateSubsets([1, 2]);
+OR
+function findAllSubsetsoOfGivenSet(arr) 
+{
+   var result= arr.reduce((subsets, value) => subsets.concat(subsets.map(set => [value,...set])),
+                          [[]]) //[[]] is used to pass initial value
+  return result
+}
+console.log(findAllSubsetsoOfGivenSet([8,9]));
+--------------------------------------------------------
+function findAllSubsets(arr){
+  var result = []
+  for(var item of arr){
+    let tempSub = [...result]
+    for(var curr of tempSub){
+      result.push([...curr, item])
+    }
+    result.push([item])
+  }
+  result.push([])
+  return result
+}
+
+console.log(findAllSubsets([1,2]))
+================================================================================================================================================================================
+Code 82: To find the maximum repetation of the character in a string  
+ function maxRepeating(str)
+    {
+        let count = 0;
+        let character = str[0];
+        for (let i=0; i<str.length; i++)
+        {
+            let tempCount = 1;
+            for (let j=i+1; j<str.length; j++)
+            {
+                if (str[i] == str[j]) //if a is equal to a
+                tempCount++; //use to find out the counts of character i.e a
+            }
+            if (tempCount > count)
+            {
+                count = tempCount;
+                character = str[i];
+            }
+        }
+        console.log(count, character)
+        return character;
+    }
+maxRepeating("aaaabbaaccccccccccccccccccde");
+================================================================================================================================================================================
+Code 83: To find all the missing numbers from an array
+function MissingElements(arr)
+{
+    for(let i = 0; i < arr.length; i++)
+    {
+        if (arr[i] - i != arr[0]) //1-0==1 //2-1==1 //6-2!=1 //checking for consecutive numbers
+        {
+            while (arr[0] < arr[i] - i)//1<4 //2<4 //3<4 //finding missing numbers
+            {
+                console.log(i + arr[0]);//2+1 //3+1 //3+1
+                arr[0]++; //2 //3 //4
+            }
+        }
+    }
+}
+MissingElements([1,2,6]); //3,4,5
+---------------------------------------------
+function MissingElements(arr)
+{
+    for(let i = 0; i < arr.length; i++)
+    {
+        if (arr[0] != arr[i] - i) 
+        {
+            while (arr[0] < arr[i] - i)
+            {
+                console.log(arr[0]+i);
+                arr[0]++; 
+            }
+        }
+    }
+}
+MissingElements([1,2,6])
+================================================================================================================================================================================
+Code 84: Adding an elements to the array when elements are consecutive numbers
+const as = [1,2,3,4];
+for (let index = 5; index <= 10; ++index) {
+    as.push(index);
+}
+console.log(as); //[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+================================================================================================================================================================================
+Code 85: Create a new array by adding one to each elements of the existing array
+function plusOne(arr){
+  var output=[]
+    for (let i = 0; i < arr.length; ++i) {
+        output.push(arr[i]+1);
+    }
+  return output
+}
+console.log(plusOne([1,2,3,4]));
+================================================================================================================================================================================
+Code 86: To find kth smallest or largest element in an array
+function findKthSmallestOrLargest(arr, num) {
+  arr.sort(function(a, b) { return a - b});
+  console.log(arr)
+  console.log("kth smallest", arr[num- 1]) //kth smallest
+  console.log("kth largest", arr[arr.length-num]) //kth smallest
+
+};
+console.log(findKthSmallestOrLargest([2,1,4,3,6,5,7], 3)); //kth is 3rd //3,5
+====================================================================================================================================================================================
+Code 87: sort by frequency of the letters
+function frequencySort(str) {
+   let map = {}
+   for (const letter of str) {
+      map[letter] = (map[letter] || 0) + 1; //to count the occurance
+     };
+     console.log(map) //{a: 2,A: 2,b: 3,B: 3,c: 1,C: 1}
+   let res = "";
+   let sorted = Object.keys(map).sort((a, b) => map[b] - map[a])
+   console.log("sorted", sorted)// ["b", "B", "a", "A", "c", "C"]
+   for (let letter of sorted) {
+      for (let count = 0; count < map[letter]; count++) {
+         res += letter
+         console.log(res)
+      }
+   }
+   return res;
+};
+console.log(frequencySort("cCaaAAbbbBBB")); //"bbbBBBaaAAcC"
+-------------------------------------------------------------------
+function frequencySort(str) {
+ let map = {}, res = "", sortedArr;
+ for (const letter of str)map[letter]=(map[letter] || 0) + 1; 
+ sortedArr = Object.keys(map).sort((a, b) => map[b] - map[a]);
+ for (let letter of sortedArr) {
+      for (let count = 0; count < map[letter]; count++) {
+         res += letter
+      }
+ }
+ return res;
+};
+console.log(frequencySort("cCaaAAbbbBBB"));
+================================================================================================================================================================================
+Code 88: To find the OCCURANCE of the character
+function frequencySort(str) {
+   let map = {}
+   for (var i=0; i<str.length; i++) 
+   {
+     map[str[i]] = map[str[i]] ? map[str[i]]+1 : 1;  //Adding an element to the object, if already present then incrementing by 1
+   }
+   console.log(map)////{"c":1, "C:1", "a":2, "A":2, "b":3, "B":3}
+};
+frequencySort("cCaaAAbbbBBB"); 
+OR
+function frequencySortArr(arr) {
+   let map = {}
+   arr.forEach((element)=>{map[element] = map[element]+1 || 1 }) // will get occurance of the number
+      return [...arr].sort((a,b)=> map[b]-map[a])
+};
+console.log(frequencySortArr([2,5,67,89,2,3,4,4,4]));  //[4,4,4,2,2,5,67,89,3]
+================================================================================================================================================================================
+Code 89: Permutation // Need to debug
+let perm= (str, result)=> {
+  if(str.length==0){console.log("result", result)} //let //lte //elt //etl //tle //tel
+  
+  for(var i=0; i<str.length; i++){
+    let rest= str.substring(0,i)+ str.substring(i+1) 
+   // console.log("rest", rest) //et//t//"" //e//"" //lt//t//"" //l//"" //le//e//"" //l//""
+    console.log("finalresult",result+str[i])  //l//le//let  //lt//lte  //e//el//elt  //et//etl  //t//tl//tle  //te//tel 
+    perm(rest, result+str[i]) 
+  }
+}
+perm('let',''); 
+//"result" "let"
+//"result" "lte"
+//"result" "elt"
+//"result" "etl"
+//"result" "tle"
+//"result" "tel"
+================================================================================================================================================================================
+Code 90: To find the power of x
+   var r = 1, i = 1;
+    var b = 2;e =3 ;
+    while(i <= e) //1<3//2<3//3=3
+    {
+        r *= b; //1*2//2*2//4*2
+        i++;
+    }
+console.log(r) //8
+OR
+let number = 2;
+let exponent = 3;
+console.log( number ** exponent);
+console.log( Math.pow(number, exponent));
+================================================================================================================================================================================
+Code 91: To find even and odd number by user input
+const number = prompt("Enter a number: ");
+if(number % 2 == 0) {
+    console.log("The number is even.");
+}
+else {
+    console.log("The number is odd.");
+}
+================================================================================================================================================================================
+Code 92: Grouping of an Anagram
+let collectAnagrams = (words) => {
+    let anagrams = {}
+    let collectedAnagrams = []
+    for (let word of words)
+    {
+        let sortedWord = word.split('').sort().join('') //arrange ervery word in alphabetical order
+        anagrams[sortedWord] = anagrams[sortedWord]  || [] //console.log(".",anagrams) //creating keys 
+        anagrams[sortedWord].push(word) // assigning exact values to keys //console.log("..", anagrams) 
+    }
+    console.log(anagrams)
+    for (let item in anagrams)
+    {
+        collectedAnagrams.push(anagrams[item])  // add their values as subarrays of the collectedAnagrams array
+    }
+    return collectedAnagrams
+}
+console.log(collectAnagrams(['bag', 'gab', 'foo', 'abg', 'oof', 'ofo'])) //[["bag", "gab", "abg"], ["foo", "oof", "ofo"]]
+======================================================================================================================
+  
