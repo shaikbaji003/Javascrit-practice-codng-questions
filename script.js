@@ -4761,3 +4761,94 @@ console.log(result)
 ================================================================================================================================================================================
   
   
+  //03/01/2023
+  
+  
+  // What is the output?
+//1
+let a = 10;
+var a = 20;
+console.log(a);
+//2
+const a = { x: 1, y: 2 };
+const b = a;
+b.x = 3;
+console.log(a);
+console.log(b);
+//3
+console.log(typeof undefined);
+console.log(typeof null);
+console.log(typeof NULL);
+console.log(typeof typeof 1);
+//4
+function func2() {
+  return;
+  {
+    name: "Full Stack Tutorials";
+  }
+}
+console.log(func2());
+//5
+function func1() {
+  return {
+    name: "Full Stack Tutorials",
+  };
+}
+console.log(func1());
+//6
+var a=3;
+var b=a++;
+var c=++a;
+console.log(a,b,c)
+//7
+const a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+for (let i = 0; i < 10; i++) {
+  setTimeout(() => console.log(a[i]), 1000);
+}
+
+for (var i = 0; i < 10; i++) {
+  setTimeout(() => console.log(a[i]), 1000);
+}
+//8 Find the sum of all elements/numbers of a given array?
+var arr = [1, 2, 5, 10, 20];
+var sum = arr.reduce((a, i) => {
+  return a + i;
+});
+console.log(sum);
+//9 How to convert an Object {} into an Array [] in JavaScript?
+let obj = { id: "1", name: "Test User", age: "25", profession: "Developer" };
+console.log(Object.values(obj));
+//10 print vegtarian true values
+const passengers123 = [
+  {
+    id: 1,
+    passengerName: "Freddie Mercury",
+    isVegetarianOrVegan: false,
+    connectedFlights: 2
+  },
+  {
+    id: 2,
+    passengerName: "Amy Winehouse",
+    isVegetarianOrVegan: true,
+    connectedFlights: 4
+  },
+  {
+    id: 3,
+    passengerName: "Kurt Cobain",
+    isVegetarianOrVegan: true,
+    connectedFlights: 3
+  },
+  {
+    id: 3,
+    passengerName: "Michael Jackson",
+    isVegetarianOrVegan: true,
+    connectedFlights: 1
+  }
+];
+
+
+
+const det=passengers123.filter((e)=> e.isVegetarianOrVegan).map((e)=> e.isVegetarianOrVegan)
+console.log(det)
+  
