@@ -4851,4 +4851,48 @@ const passengers123 = [
 
 const det=passengers123.filter((e)=> e.isVegetarianOrVegan).map((e)=> e.isVegetarianOrVegan)
 console.log(det)
+
+// Answer:-1. the result of remainder always get the symbol of first operand
+======================================================================================================================================================================
+let a = [];
+let b = [];
+console.log(a==b); //false
+console.log(a===b); //false
+//Explaination : Here we are comparing memory location, not an array. Memory location of 2 arrays are not same.
+--------------------------
+let a = [];
+let b = a;
+console.log(a==b); //true
+console.log(a===b); //true
+//Explaination : Here we are assigning a to b, where memory location is now same.
+---------------------------
+let a = [1];
+let b = [1];
+console.log(a[0]==b[0]); //true
+console.log(a[0]===b[0]); //true
+//Explaination : Here we are comparing elements inside an array, not a memory location. We specify the index so that's why element get compared.
+-----------------------------
+let z= [1,2,3]
+let a ={name: "priya"}
+console.log(...z); // 1 2 3 
+//Explaination : ...z means destructing happened i.e, all the elements are come out from an array/object.
+------------------------------
+console.log(typeof NaN); //number
+//Explaination : If we divide "priya"/2 then it will give NaN. 
+--------------------------------
+let data = 10 - -10;
+console.log(data); //20
+//Explaination : Minus minus will become plus so 10+10=20
+---------------------------------
+const set = new Set([1,1,2,2,3,4,5])
+console.log(set) //{1,2,3,4,5}
+//Explaination : It will remove duplicate values.
+---------------------------------
+let data ={name: "priya"}
+console.log(delete data.name); //true
+console.log(data)//{}
+//Explaination : delete will return either true or false.
+-----------------------------------
+let data ={name: "priya"}
+console.log(delete data); //false
   
