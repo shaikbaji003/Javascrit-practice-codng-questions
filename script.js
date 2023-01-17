@@ -6401,3 +6401,229 @@ function getName(){
 }
 getName();
 ------------------------------------------------------------------------------
+
+
+//17/01/2023
+
+
+
+
+------------------------------------------------------------------------------
+const foo = () => console.log("first");
+const bar = () => setTimeout(()=> console.log("second"));
+const baz = () => console.log("third");
+bar();
+foo();
+baz();
+//Explaination : first,third, second. Because asyn operation work post all the syn operation get complete.
+----------------------------------------------------------------------------
+<div onClick="console.log("first div")">
+  <div onClick="console.log("second div")">
+    <button onClick="console.log("button")">
+     Click Me
+     </button>
+  </div>
+</div>
+//Explaination : button, second div, first div. Even bubbling happened here.
+---------------------------------------------------------------------------
+const person = {name:'priya'};
+function sayHi(age){
+  return `${this.name} is ${age}`;
+}
+console.log(sayHi.call(person,21)); //"priya is 21"
+console.log(sayHi.bind(person,21)); //it will return a function. //function sayHi(age){  return `${this.name} is ${age}`;}
+console.log(sayHi.bind(person,21)()); //"priya is 21"
+//Explaination : Bind will always return a function so require to invoke the function.
+------------------------------------------------------------------------------
+function sayHi(){
+  return (()=>0)();
+}
+console.log(typeof sayHi()); //number
+//Explaination : sayHi will return anonymous arrow function/IIFE, where it will return 0. type of 0 is number.
+----------------------------------------------------------------------------
+function sayHi(){
+  return ()=>0;
+}
+console.log(typeof sayHi()); //function
+console.log(typeof sayHi()()); //function
+//Explaination : sayHi will return anonymous arrow function/IIFE, where we didn't invole the arroe function so it will return function.
+-----------------------------------------------------------------------------
+console.log(typeof typeof 1); //string
+//Explaination : typeof 1 is a number and typeof number is a string.
+-----------------------------------------------------------------------------
+const numbers = [1,2,3];
+numbers[6]=11;
+console.log(numbers); //[1,2,3,,,,11]
+//Explaination : Array store elements in a continuous memory location. It will give empty in between an array.
+-------------------------------------------------------------------------------
+const numbers = [1,2,3];
+numbers[9]=numbers;
+console.log(numbers); //[1,2,3,,,,.......]
+//Explaination: It will print infinite loop.
+-------------------------------------------------------------------------------
+console.log(!!null); //false
+console.log(!!""); //false
+console.log(!!1); //true
+//Explaination: !null give true and !!null give false. !1 give false and then !!1 give true.
+-------------------------------------------------------------------------------
+console.log(setInterval(()=>console.log('Hi'), 1000));
+console.log(setInterval(()=>console.log('Hi'), 1000));
+console.log(setInterval(()=>console.log('Hi'), 1000));
+//Explaination: setInterval will give uniques id to stop. It will give like 1,2,3. so it will print 1,2,3,Hi,Hi, Hi, Hi, Hi, .....so on.
+------------------------------------------------------------------------------
+console.log(setTimeout(()=>console.log('Hi'), 1000));
+console.log(setTimeout(()=>console.log('Hi'), 1000));
+console.log(setTimeout(()=>console.log('Hi'), 1000));
+//Explaination : it will print 1,2,3,Hi,Hi, Hi.
+-------------------------------------------------------------------------------
+console.log([..."priya"]); //["p","r","i","y","a"]
+//Explaination: It will convert into an array.
+-------------------------------------------------------------------------------
+const firstPromise = new Promise((res, rej)=>{
+  setTimeout(res, 500, 'one');
+})
+const secondPromise = new Promise((res, rej)=>{
+  setTimeout(res, 100, 'second');
+})
+Promise.race([firstPromise, secondPromise]).then(res => console.log(res));
+//Explaination: Race will return only first matching result so it will print 100. For 500 it will take time to execute so it will not get print.
+-----------------------------------------------------------------------------------
+  ================================================================================================================================================================================
+Code 1: Remove Duplicate characters from String
+function removeDuplicateCharacters() {
+  var string='priya riya supriya'
+  let result= string.split('').filter((item, index, arr)=> {
+               return arr.indexOf(item) == index;
+               }).join('');
+  return result;
+}
+console.log(removeDuplicateCharacters());
+================================================================================================================================================================================
+Code 2: Remove Duplicate characters from array of element and find the count of an elements using set object
+var arr = [55, 44, 55,67,67,67,67,8,8,8,8,8,65,1,2,3,3,34,5];
+var unique = [...new Set(arr)]
+console.log(unique) //output: [55, 44, 67, 8, 65, 1, 2, 3, 34, 5]
+console.log(unique.length) //output: 10
+================================================================================================================================================================================
+Code 3: Remove Duplicate characters from array of element using filter
+var myArray = ['a', 1, 'a', 2, '1'];
+var unique = myArray.filter((value, index, arr) => arr.indexOf(value) === index);
+================================================================================================================================================================================
+Code 4:String reverse without reversing of individual words (Array of elements can be reverse with reverse() method but for string it is won't possible so required to split 
+and then join().
+function removeDuplicates(){
+   var string ="India is my country"
+   let result = string.split('').reverse().join('').split(' ').reverse().join(' ')
+   return result
+}
+console.log(removeDuplicates()) 
+output = "aidnI si ym yrtnuoc"
+------------------------------------------
+var reverseWords = function(s) {
+    let res = '';
+    let word = '';
+    for (let c of s) {
+        if (c === ' ') {
+            res += word + c;
+            word = '';
+        } else {
+            word = c + word;
+        }
+    }
+    return res + word;
+};
+console.log(reverseWords("priya bagde"))
+================================================================================================================================================================================
+Code 5:String reverse with reversing of individual words
+function withoutReverse(){
+   var string ="India is my country"
+   let result = string.split('').reverse().join('')
+   return result
+}
+console.log(withoutReverse())
+output = "yrtnuoc ym si aidnI"
+================================================================================================================================================================================
+Code 6:String reverse without using inbult function
+function Reverse(){
+   var string ="India is my country";
+   var result="";
+   for( var i=string.length-1; i>=0 ; i-- ) {
+      result=result+string[i] }
+   return result
+}
+console.log(Reverse())
+output = "yrtnuoc ym si aidnI"
+================================================================================================================================================================================
+Code 7: Find factorial of user input number
+const number = parseInt(prompt('Enter a positive integer: '));
+if (number < 0) { console.log('Error! Factorial for negative number does not exist.')}
+else if (number === 0) { console.log(`The factorial is 1.`)}
+else {
+    let fact = 1;
+    for (i = 1; i <= number; i++) {
+        fact *= i;
+    }
+    console.log(`The factorial is ${fact}.`);
+}
+================================================================================================================================================================================
+Code 8:Anagram
+function checkStringsAnagram() {
+var a="Army";
+var b="Mary"
+   let str1 =  a.toLowerCase().split('').sort().join('');
+   let str2 =  b.toLowerCase().split('').sort().join('');
+   if(str1 === str2){
+      console.log("True");
+   } 
+   else { 
+      console.log("False");
+   }
+}
+================================================================================================================================================================================
+Code 9: Swapping of 2 numbers with third variable
+let a=10;
+let b=20;
+let c;
+   c=a;
+   a=b;
+   b=c;
+console.log (a,b,c)
+================================================================================================================================================================================
+Code 10: Swapping of 2 numbers without third variable
+let a=10; 
+let b=20;
+   a=a+b //30
+   b=a-b //10
+   a=a-b //20
+console.log (a,b)
+================================================================================================================================================================================
+Code 11: To check the string or number is palindrome or not( ex: 121,madam,anna) using reverse method
+function checkPalindrome(){
+  const string = "anmna"
+  let arr= string.split('').reverse().join('')
+  //console.log(arr)
+  if (string==arr){
+      console.log("Palindrome")
+  }
+  else{
+      console.log("Not Palindrome")
+  }
+}
+checkPalindrome()
+================================================================================================================================================================================
+Code 12: To check the string or number is palindrome or not( ex: 121,madam,anna) using diving length by 2 and then comparing
+function checkPalindrome(){
+   const string = "12321"
+   let len = string.length;
+   for (i=0; i<len/2;i++){
+     if (string[i]!==string[len-1-i]){
+         console.log("Not Palindrome")
+     }
+     else{
+         console.log(" Palindrome")
+    }
+   }
+}
+checkPalindrome()
+================================================================================================================================================================================
+
