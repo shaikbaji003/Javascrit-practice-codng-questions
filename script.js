@@ -6858,3 +6858,213 @@ d = c;
 c.greeting = 'Hello';
 console.log(d.greeting);
 Answer — Hello
+
+
+//23/01/2023
+
+
+
+
+Question 24:
+function getAge(...args) {
+  console.log(typeof args);
+}
+
+getAge(21);
+Answer — "object"
+Explanation —The rest parameter (...args) lets us "collect" all remaining arguments into an array. An array is an object, so typeof args returns "object".
+
+Question 25:
+let greeting;
+greetign = {}; // Typo!
+console.log(greetign);
+Answer — {}
+Explanation —It logs the object, because we just created an empty object on the global object! When we mistyped greeting as greetign, the JS interpreter actually saw this as global.greetign = {} (or window.greetign = {} in a browser).
+
+In order to avoid this, we can use "use strict". This makes sure that you have declared a variable before setting it equal to anything.
+
+Question 26:
+function checkAge(data) {
+  if (data === { age: 18 }) {
+    console.log('You are an adult!');
+  } else if (data == { age: 18 }) {
+    console.log('You are still an adult.');
+  } else {
+    console.log(`Hmm.. You don't have an age I guess`);
+  }
+}
+
+checkAge({ age: 18 });
+Answer — Hmm.. You don't have an age I guess
+Explanation —When testing equality, primitives are compared by their value, while objects are compared by their reference. JavaScript checks if the objects have a reference to the same location in memory.
+
+The two objects that we are comparing don’t have that: the object we passed as a parameter refers to a different location in memory than the object we used in order to check equality.
+
+This is why both { age: 18 } === { age: 18 } and { age: 18 } == { age: 18 } return false.
+
+Question 27:
+const obj = { 1: 'a', 2: 'b', 3: 'c' };
+const set = new Set([1, 2, 3, 4, 5]);
+
+obj.hasOwnProperty('1');
+obj.hasOwnProperty(1);
+set.has('1');
+set.has(1);
+Answer — true true false true
+Explanation —All object keys (excluding Symbols) are strings under the hood, even if you don’t type it yourself as a string. This is why obj.hasOwnProperty('1') also returns true.
+
+It doesn’t work that way for a set. There is no '1' in our set: set.has('1') returns false. It has the numeric type 1, set.has(1) returns true.
+
+Question 28:
+const a = {};
+const b = { key: 'b' };
+const c = { key: 'c' };
+
+a[b] = 123;
+a[c] = 456;
+
+console.log(a[b]);
+Answer —456
+Explanation —Object keys are automatically converted into strings. We are trying to set an object as a key to object a, with the value of 123.
+
+However, when we stringify an object, it becomes "[object Object]". So what we are saying here, is that a["[object Object]"] = 123. Then, we can try to do the same again. c is another object that we are implicitly stringifying. So then, a["[object Object]"] = 456.
+
+Then, we log a[b], which is actually a["[object Object]"]. We just set that to 456, so it returns 456.
+
+Question 29:
+const numbers = [1, 2, 3];
+numbers[10] = 11;
+console.log(numbers);
+Answer — [1, 2, 3, 7 x empty, 11]
+Explanation —When you set a value to an element in an array that exceeds the length of the array, JavaScript creates something called “empty slots”. These actually have the value of undefined, but you will see something like:
+
+[1, 2, 3, 7 x empty, 11]
+
+depending on where you run it (it’s different for every browser, node, etc.).
+
+Question 30:
+let person = { name: 'Ayush' };
+const members = [person];
+person = null;
+
+console.log(members);
+Answer — [{ name: "Ayush" }]
+Explanation —We are only modifying the value of the person variable, and not the first element in the array, since that element has a different (copied) reference to the object. The first element in members still holds its reference to the original object. When we log the members array, the first element still holds the value of the object, which gets logged.
+
+Question 31:
+const person = {
+  name: 'Ayush',
+  age: 21,
+};
+
+for (const item in person) {
+  console.log(item);
+}
+Answer — "name", "age"
+Explanation —With a for-in loop, we can iterate through object keys, in this case name and age. Under the hood, object keys are strings (if they're not a Symbol). On every loop, we set the value of item equal to the current key it’s iterating over. First, item is equal to name, and gets logged. Then, item is equal to age, which gets logged.
+
+Question 32:
+[1, 2, 3].map(num => {
+  if (typeof num === 'number') return;
+  return num * 2;
+});
+Answer — [undefined, undefined, undefined]
+Explanation —When mapping over the array, the value of num is equal to the element it’s currently looping over. In this case, the elements are numbers, so the condition of the if statement typeof num === "number" returns true. The map function creates a new array and inserts the values returned from the function.
+
+However, we don’t return a value. When we don’t return a value from the function, the function returns undefined. For every element in the array, the function block gets called, so for each element, we return undefined.
+
+Question 33:
+var obj = {a:1};
+var secondObj = obj;
+secondObj.a = 2;
+console.log(obj);
+console.log(secondObj);
+var obj = {a:1};
+var secondObj = obj;
+secondObj = {a:2};
+console.log(obj);
+console.log(secondObj);
+Answer —
+1. { a:2 }and { a:2 }
+2. { a:1 }and { a:2 }
+Explanation —
+1. If the object property is changed, then the new object is pointing to the same memory address, so the original object property will also change. ( call by reference )
+2. If the object is reassigned with a new object then it is allocated to a new memory location, i.e it will be a real copy (call by value).
+
+Question 34:
+const arrTest = [10, 20, 30, 40, 50][1, 3];   
+console.log(arrTest);
+Answer — 40
+Explanation —The last element from the second array is used as the index to get the value from first array like arrTest[3].
+
+Question 35:
+console.log([] + []);               (1)
+console.log([1] + []);              (2)
+console.log([1] + "abc");           (3)
+console.log([1, 2, 3] + [1, 3, 4]); (4)
+Answer —
+1. ""
+2. "1"
+3. "1abc"
+2. "1,2,31,3,4"
+Explanation —
+1. An empty array is while printing in console.log is treated as Array.toString(), so it prints an empty string.
+2. An empty array when printed in console.log is treated as Array.toString() and so it is basically “1” + “” = "".
+3. “1” + “abc” = "1abc".
+4.“1, 2, 3” + “1, 3, 4” = "1,2,31,3,4".
+
+Question 36:
+const ans1 = NaN === NaN;
+const ans2 = Object.is(NaN, NaN);
+console.log(ans1, ans2);
+Answer — false true
+Explanation —NaN is a unique value so it fails in equality check, but it is the same object so Object.is returns true.
+
+Question 37:
+var a = 3;
+var b = {
+  a: 9,
+  b: ++a
+};
+console.log(a + b.a + ++b.b);
+Answer — 18
+Explanation — Prefix operator increments the number and then returns it. So the following expression will be evaluated as 4 + 9 + 5 = 18.
+
+Question 38:
+const arr = [1, 2, undefined, NaN, null, false, true, "", 'abc', 3];
+console.log(arr.filter(Boolean)); (1)
+const arr = [1, 2, undefined, NaN, null, false, true, "", 'abc', 3];
+console.log(arr.filter(!Boolean)); (2)
+Answer —
+1. [1, 2, true, “abc”, 3].
+2. It will throw an error.
+Explanation —
+1. Array.filter() returns the array which matches the condition. As we have passed Boolean it returned all the truthy value.
+2. As Array.filter() accepts a function, !Boolean returns false which is not a function so it throws an error Uncaught TypeError: false is not a function.
+
+Question 39:
+const person = {
+  name: 'Ayush Verma',
+  .25e2: 25
+};
+
+console.log(person[25]);
+console.log(person[.25e2]);
+console.log(person['.25e2']);
+Answer — 25 25 undefined
+Explanation —While assign the key the object evaluates the numerical expression so it becomes person[.25e2] = person[25]. Thus while accessing when we use 25 and .25e2 it returns the value but for '.25e2' is undefined.
+
+Question 40:
+console.log(new Array(3).toString());
+Answer — “,,”
+Explanation —Array.toString() creates string of the array with comma separated values.
+
+Question 41: (setTimeout and “this” keyword)
+const foo = () => console.log('First');
+const bar = () => setTimeout(() => console.log('Second'));
+const baz = () => console.log('Third');
+bar();
+foo();
+baz();
+Answer — First Third Second
+Explanation —We have a setTimeout function and invoked it first. Yet, it was logged last.
