@@ -7068,3 +7068,216 @@ foo();
 baz();
 Answer — First Third Second
 Explanation —We have a setTimeout function and invoked it first. Yet, it was logged last.
+
+
+
+
+//24/01/2023
+
+
+
+
+
+
+Question 41: (setTimeout and “this” keyword)
+const foo = () => console.log('First');
+const bar = () => setTimeout(() => console.log('Second'));
+const baz = () => console.log('Third');
+bar();
+foo();
+baz();
+Answer — First Third Second
+Explanation —We have a setTimeout function and invoked it first. Yet, it was logged last.
+
+This is because, in browsers, we don’t just have the runtime engine, we also have something called a WebAPI. The WebAPI gives us the setTimeout function to start with and for example the DOM. The WebAPI can’t just add stuff to the stack whenever it’s ready. Instead, it pushes the callback function to something called the queue. An event loop looks at the stack and task queue. If the stack is empty, it takes the first thing on the queue and pushes it onto the stack.
+
+Question 42:
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 1);
+}
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 1);
+}
+Answer — 3 3 3 and 0 1 2
+Explanation — Because of the event queue in JavaScript, the setTimeout callback function is called after the loop has been executed. Since the variable i in the first loop was declared using the var keyword, this value was global. During the loop, we incremented the value of i by 1 each time, using the unary operator ++. By the time the setTimeout callback function was invoked, i was equal to 3 in the first example.
+
+In the second loop, the variable i was declared using the let keyword: variables declared with the let (and const) keyword are block-scoped (a block is anything between { }). During each iteration, i will have a new value, and each value is scoped inside the loop.
+
+Question 43:
+let obj = {
+    x: 2,
+    getX: function() {
+        setTimeout(() => console.log('a'), 0);
+        new Promise( res =>  res(1)).then(v => console.log(v));
+        setTimeout(() => console.log('b'), 0);
+    }
+}
+obj.getX();
+Answer — 1 a b
+Explanation —When a macrotask is completed, all other microtasks are executed in turn first, and then the next macrotask is executed.
+
+Mircotasks include: MutationObserver, Promise.then() and Promise.catch(), other techniques based on Promise such as the fetch API, V8 garbage collection process, process.nextTick() in node environment.
+
+Marcotasks include initial script, setTimeout, setInterval, setImmediate, I/O, UI rendering.
+
+An immediately resolved promise is processed faster than an immediate timer because of the event loop priorities dequeuing jobs from the job queue (which stores the fulfilled promises’ callbacks) over the tasks from the task queue (which stores timed out setTimeout() callbacks).
+
+Question 44:
+const shape = {
+  radius: 10,
+  diameter() {
+    return this.radius * 2;
+  },
+  perimeter: () => 2 * Math.PI * this.radius,
+};
+console.log(shape.diameter());
+console.log(shape.perimeter());
+Answer — 20 and NaN
+Explanation —Note that the value of diameter is a regular function, whereas the value of perimeter is an arrow function.
+
+With arrow functions, the this keyword refers to its current surrounding scope, unlike regular functions! This means that when we call perimeter, it doesn't refer to the shape object, but to its surrounding scope (window for example).
+
+There is no value radius on that object, which returns NaN.
+
+Question 45:
+function Person(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+}
+
+const member = new Person('Ayush', 'Verma');
+Person.getFullName = function() {
+  return `${this.firstName} ${this.lastName}`;
+};
+
+console.log(member.getFullName());
+Answer — TypeError
+Explanation —In JavaScript, functions are objects, and therefore, the method getFullName gets added to the constructor function object itself. For that reason, we can call Person.getFullName(), but member.getFullName throws a TypeError.
+
+If you want a method to be available to all object instances, you have to add it to the prototype property:
+
+Person.prototype.getFullName = function() {
+  return `${this.firstName} ${this.lastName}`;
+};
+Question 46:
+function Person(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+}
+
+const ayush = new Person('Ayush', 'Verma');
+const sarah = Person('Sarah', 'Smith');
+
+console.log(ayush);
+console.log(sarah);
+Answer — Person {firstName: "Ayush", lastName: "Verma"} and undefined
+Explanation —For sarah, we didn't use the new keyword. When using new, this refers to the new empty object we create. However, if you don't add new, this refers to the global object!
+
+We said that this.firstName equals "Sarah" and this.lastName equals "Smith". What we actually did, is defining global.firstName = 'Sarah' and global.lastName = 'Smith'. sarah itself is left undefined, since we don't return a value from the Person function.
+
+Question 47:
+const person = { name: 'Ayush' };
+
+function sayHi(age) {
+  return `${this.name} is ${age}`;
+}
+
+console.log(sayHi.call(person, 21));
+console.log(sayHi.bind(person, 21));
+Answer — Ayush is 21 function
+Explanation —With both, we can pass the object to which we want the this keyword to refer. However, .call is also executed immediately!
+
+.bind. returns a copy of the function, but with a bound context! It is not executed immediately.
+
+Question 48:
+let obj = {
+    x: 2,
+    getX: function() {
+        console.log(this.x);
+    }
+}
+obj.getX(); (1)
+let x = 5;
+let obj = {
+    x: 2,
+    getX:() => {
+        console.log(this.x)
+    }
+}
+obj.getX(); (2)
+let x = 5;
+let obj = {
+    x: 2,
+    getX: function(){
+        let x = 10;
+        console.log(this.x);
+    }
+}
+let y = obj.getX;
+y(); (3)
+Answer —
+1) 2
+2) undefined
+3) undefined
+Explanation — First case is a regular function, the this keyword is bound to different values based on the context in which the function is called. Here obj is calling the function to this will point to current obj.
+
+The second case is an arrow function, it will use the value of this in their lexical scope i.e value of x in surrounding scope. Here surrounding is the global scope or window object. In this case, "x” is declared as let and let, unlike var, does not create a property on the global object. “x” is not present i.e return undefined. If “x” is declared as var, it will return 5.
+
+In the third case, “y” is assigned a value of obj.getX,and “y” is in the global scope or window object. Hence “this” will point to global scope i.e. global “x”, which is undefined as “x” is declared as let. If “x” is declared as var, it will return 5.
+
+Question 49:
+let a = 10, b = 20;
+setTimeout(function () {
+  console.log('Ayush');
+  a++;
+  b++;
+  console.log(a + b);
+});
+console.log(a + b);
+Answer — 30 “Ayush” 32.
+Explanation —Settimeout pushes the function into BOM stack in event loop or it is executed after everything is executed in main function. So the results are printed after the console.log of main function.
+
+Question 50:
+function a() {
+  this.site = 'Ayush';
+
+  function b(){
+    console.log(this.site);
+  } 
+  
+  b();
+}
+
+var site = 'Wikipedia';
+a(); (1)
+function a() {
+  this.site = 'Ayush';
+
+  function b(){
+    console.log(this.site);
+  } 
+  
+  b();
+}
+
+var site = 'Wikipedia';
+new a(); (2)
+function a() {
+  this.site = 'Ayush';
+
+  function b(){
+    console.log(this.site);
+  } 
+  
+  b();
+}
+
+let site = 'Wikipedia';
+new a(); (3)
+Answer —
+1. 'Ayush'.
+2. 'Wikipedia'
+3. undefined
+
+Explanation —
+1. When a function with normal syntax is executed the value of this of the nearest parent will be used if not set at execution time, so in this case it is window, we are then updating setting the property site in the window object and accessing it inside so it is 'Ayush'.
